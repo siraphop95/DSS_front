@@ -15,8 +15,8 @@ import Test from '@/components/Test'
 import Louise from '@/components/Louise'
 import LouiseTest from '@/components/LouiseTest'
 import Navbar from '@/components/Navbar'
-import DocumentDetail from '@/components/documentDetail'
-import SuggestedDocuments from '@/components/Home'
+import DocumentDetail from '@/components/DocumentDetail'
+import SuggestedDocuments from '@/components/SuggestedDocuments'
 import Answer from '@/components/Answer'
 Vue.use(Router)
 
