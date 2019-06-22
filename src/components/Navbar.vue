@@ -1,0 +1,98 @@
+<template>
+  <nav>
+    <!-- toolbar -->
+    <v-toolbar flat app>
+      <v-toolbar-side-icon @click="drawer = !drawer" class="grey--text"></v-toolbar-side-icon>
+      <v-toolbar-title class="text-uppercase grey--text">
+        <span>Drug Suggestion Service</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <!-- account -->
+      <v-menu offset-y full-width:true min-width="200px">
+        <v-btn flat fab slot="activator" color="grey">
+          <v-icon>account_circle</v-icon>
+        </v-btn>
+        <v-layout column align-center pt-3 class="white">
+          <v-avatar size="70">
+            <img src="@/assets/thor_avatar.png">
+          </v-avatar>
+          <p>{{user.username}}</p>
+          <p>{{user.email}}</p>
+        </v-layout>
+        <v-list>
+          <v-list-tile v-for="(item, index) in items" :key="index" router :to="item.route">
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+    </v-toolbar>
+
+    <!-- navigation-drawer -->
+    <v-navigation-drawer
+      id="app-drawer"
+      v-model="drawer"
+      app
+      floating
+      persistent
+      mobile-break-point="991"
+      width="260"
+    >
+      <v-layout align-center justify-center>
+        <v-btn class="mt-5 grey lighten-5" router to="/addDocument">
+          <v-icon left>add_circle</v-icon>
+          <span>New Document</span>
+        </v-btn>
+      </v-layout>
+
+      <v-list class="mt-5">
+        <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
+          <v-list-tile-action>
+            <v-icon>{{ link.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ link.text }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+  </nav>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      user: [],
+      drawer: true,
+      links: [
+        { icon: "dashboard", text: "Dashboard", route: "/" },
+        { icon: "folder", text: "My Questions", route: "/myQuestions" },
+        { icon: "drafts", text: "My Answers", route: "/myAnswers" }
+      ],
+      items: [
+        { title: "Manage Profile", route: "/profile" },
+        { title: "Log Out", route: "/logout" }
+      ]
+    };
+  },
+  mounted() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    
+    // console.log(this.user)
+  }
+};
+</script>
+
+<style lang="scss">
+#app-drawer {
+  .v-list__tile {
+    border-radius: 4px;
+
+    &--buy {
+      margin-top: auto;
+      margin-bottom: 17px;
+    }
+  }
+}
+</style>
