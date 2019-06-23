@@ -12,7 +12,7 @@
               <p class="headline">Sign In</p>
               <p class="caption">
                 <span>or</span>
-                <a href="/louise">create an account</a>
+                <a href="/signup">create an account</a>
               </p>
             </v-layout>
           </v-card-title>

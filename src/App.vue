@@ -50,7 +50,13 @@ export default {
 
   methods: {
     redirectGuestToLogin() {
-      if (!token) {
+      if(this.$router.history.current.path=='/signup') {
+        
+      }
+      else if(this.$router.history.current.path=='/forgotpassword') {
+        
+      }
+      else if (!token) {
         return this.$router.push("/login");
       }
     },
