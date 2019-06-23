@@ -18,7 +18,12 @@ import Navbar from '@/components/Navbar'
 import DocumentDetail from '@/components/DocumentDetail'
 import SuggestedDocuments from '@/components/SuggestedDocuments'
 import Answer from '@/components/Answer'
+import uploadTest from '@/components/uploadTest'
+
 Vue.use(Router)
+
+
+
 
 export default new Router({
   routes: [{
@@ -111,6 +116,11 @@ export default new Router({
       path: '/answer/:docId',
       name: 'Answer',
       component: Answer
+    },
+    {
+      path: '/upload',
+      name: 'uploadTest',
+      component: uploadTest
     }
   ],
   mode: 'history'

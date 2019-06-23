@@ -7,6 +7,8 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import axios from 'axios'
 import VeeValidate from 'vee-validate'
+const fb = require('./firebaseConfig.js')
+
 
 
 window.token = localStorage.getItem('token');
@@ -19,20 +21,19 @@ Vue.use(Vuetify)
 Vue.use(VeeValidate);
 Vue.config.productionTip = false
 
-Vue.mixin({
-  data: function() {
-    return {
-      globalUrl:'global'
-    }
-  }
-})
+
+
+
+
 
 
 window.Event = new Vue;
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+// fb.auth.onAuthStateChanged(user => {
+  new Vue({
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
+  })
+// })
