@@ -18,6 +18,7 @@ import Navbar from '@/components/Navbar'
 import DocumentDetail from '@/components/DocumentDetail'
 import SuggestedDocuments from '@/components/SuggestedDocuments'
 import Answer from '@/components/Answer'
+import AnswerReview from '@/components/AnswerReview'
 import uploadTest from '@/components/uploadTest'
 
 Vue.use(Router)
@@ -116,6 +117,11 @@ export default new Router({
       path: '/answer/:docId',
       name: 'Answer',
       component: Answer
+    },
+    {
+      path: '/answerreview/:docId',
+      name: 'AnswerReview',
+      component: AnswerReview
     },
     {
       path: '/upload',

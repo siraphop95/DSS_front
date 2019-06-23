@@ -1,8 +1,7 @@
 <template>
   <v-container>
     <v-layout text-xs-center wrap>
-      <h2>(Supposed to) List NEW documents</h2>
-      <h4>NOW it lists ALL documents</h4>
+      <h2>List NEW documents</h2>
     </v-layout>
 
     <!-- search -->

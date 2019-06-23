@@ -64,8 +64,21 @@
             <v-select
               menu-props="offsetY"
               prepend-icon="local_hospital"
-              :items="userTypeItems"
+              :items="professionItems"
               label="Health Professional"
+              pa-3
+              required
+              :rules="requiredRules"
+              v-model="User.userType"
+            ></v-select>
+          </v-flex>
+
+          <v-flex xs12 sm7>
+            <v-select
+              menu-props="offsetY"
+              prepend-icon="local_hospital"
+              :items="userTypeItems"
+              label="User Type"
               pa-3
               required
               :rules="requiredRules"
@@ -93,6 +106,7 @@ export default {
         firstName: "",
         lastName: "",
         email: "",
+        profession: "",
         userType: ""
       },
       show: false,
@@ -119,9 +133,10 @@ export default {
           /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
           "E-mail must be valid"
       ],
-      userTypeItems: [
+      professionItems:[
         "แพทย์ทั่วไป","แพทย์เฉพาะทาง","ทันตแพทย์","เภสัชกร","พยาบาล","นักวิทย์","นักสาธารณสุข","นักศึกษาวิทย์ฯ","ประชาชน","อื่น ๆ"
-        ]
+        ],
+      userTypeItems: ["ผู้ถาม","ผู้ตอบ"]
     };
   },
   methods: {
@@ -133,6 +148,7 @@ export default {
           firstName: this.User.firstName,
           lastName: this.User.lastName,
           email: this.User.email,
+          profession: this.User.profession,
           userType: this.User.userType
         };
         console.log(newUser);

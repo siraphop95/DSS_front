@@ -10,6 +10,9 @@
         <v-btn>Suggested Documents</v-btn>
       </router-link>
       <v-btn dark class="blue">Write Answer</v-btn>
+      <router-link :to="{ path: '/answerreview/' + this.$route.params.docId}">
+        <v-btn>Answer Review</v-btn>
+      </router-link>
     </v-layout>
 
     <v-form ref="form">
@@ -136,9 +139,7 @@ export default {
         var imageFile = file[i];
         console.log(imageFile.name);
         this.uploadEachImage(imageFile,this.$route.params.docId);
-
       }
-
     },
     uploadEachImage(imageFile,docId) {
       // return new Promise(function(resolve, reject) {
@@ -153,7 +154,6 @@ export default {
             var percentage =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             //uploader.value = percentage;
-            
           },
           null,
           //on complete
@@ -174,7 +174,6 @@ export default {
       // });
     },
     updateToAPI() {
-      
       let newDoc = {
         answerDetail: this.Doc.answerDetail,
         fileURL: this.downloadURL

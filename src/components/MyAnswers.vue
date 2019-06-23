@@ -1,8 +1,7 @@
 <template>
   <v-container>
     <v-layout text-xs-center wrap>
-      <h2>(Supposed to) List Answers belonging to the user</h2>
-      <h4>NOW it lists ALL documents</h4>
+      <h2>List Answers belonging to the {{user.username}}</h2>
     </v-layout>
 
     <!-- search -->

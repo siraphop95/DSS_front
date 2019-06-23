@@ -10,6 +10,9 @@
       <router-link :to="{ path: '/answer/' + this.$route.params.docId}">
         <v-btn>Write Answer</v-btn>
       </router-link>
+      <router-link :to="{ path: '/answerreview/' + this.$route.params.docId}">
+        <v-btn>Answer Review</v-btn>
+      </router-link>
     </v-layout>
 
     <!-- search -->
