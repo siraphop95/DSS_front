@@ -12,7 +12,7 @@ import Logout from '@/components/Logout'
 import Profile from '@/components/Profile'
 import Home from '@/components/Home'
 import Test from '@/components/Test'
-import Louise from '@/components/Louise'
+import Signup from '@/components/Louise'
 import LouiseTest from '@/components/LouiseTest'
 import Navbar from '@/components/Navbar'
 import DocumentDetail from '@/components/DocumentDetail'
@@ -83,9 +83,9 @@ export default new Router({
       component: Logout
     },
     {
-      path: '/louise',
-      name: 'Louise',
-      component: Louise
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
     },
     {
       path: '/louisetest',
