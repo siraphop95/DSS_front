@@ -48,6 +48,8 @@
 <script>
 import axios from "axios"
 import Fuse from "fuse.js"
+
+
 export default {
   name: "Documents",
   data() {
