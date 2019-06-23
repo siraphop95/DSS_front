@@ -1,96 +1,70 @@
 <template>
-  <div class="Louise">
-    <v-container>
-      <h4 class="grey--text">Sign up</h4>
-      <v-form ref="form">
-        <v-layout row wrap px-5 py-2 my-3>
-          <v-flex xs12 md5>
+  <v-container fluid fill-height class="back">
+    <v-layout column align-center justify-center>
+      <v-card width="410px" height="auto" class="elevation-8">
+        
+        <v-card-title>
+          <v-layout column align-center pt-2>
+            <p class="headline">Sign Up</p>
+          </v-layout>
+        </v-card-title>
+        
+        <v-card-text class="px-4 py-0">
+          <v-form ref="form">
+            <v-text-field label="Username" v-model="User.username" :rules="inputRules" autofocus></v-text-field>
             <v-text-field
-              prepend-icon="local_hospital"
-              label="Username"
-              v-model="User.username"
-              :rules="inputRules"
-            ></v-text-field>
-          </v-flex>
-
-          <v-flex xs12 md5>
-            <v-text-field
-              prepend-icon="local_hospital"
               label="Password"
               :type="'password'"
               v-model="User.password"
               :rules="passwordRules"
             ></v-text-field>
-          </v-flex>
-
-          <v-flex xs12 md5>
             <v-text-field
-              prepend-icon="local_hospital"
               label="Confirm Password"
               :type="'password'"
               v-model="User.confirmPassword"
               :rules="confirmPasswordRules"
             ></v-text-field>
-          </v-flex>
-
-          <v-flex xs12 md5>
-            <v-text-field
-              prepend-icon="local_hospital"
-              label="Firstname"
-              v-model="User.firstName"
-              :rules="requiredRules"
-            ></v-text-field>
-          </v-flex>
-
-          <v-flex xs12 md5>
-            <v-text-field
-              prepend-icon="local_hospital"
-              label="Lastname"
-              v-model="User.lastName"
-              :rules="requiredRules"
-            ></v-text-field>
-          </v-flex>
-
-          <v-flex xs12 md5>
-            <v-text-field
-              prepend-icon="local_hospital"
-              label="Email"
-              v-model="User.email"
-              :rules="emailRules"
-            ></v-text-field>
-          </v-flex>
-
-          <v-flex xs12 sm7>
+            <v-text-field label="Firstname" v-model="User.firstName" :rules="requiredRules"></v-text-field>
+            <v-text-field label="Lastname" v-model="User.lastName" :rules="requiredRules"></v-text-field>
+            <v-text-field label="Email" v-model="User.email" :rules="emailRules"></v-text-field>
             <v-select
               menu-props="offsetY"
-              prepend-icon="local_hospital"
               :items="professionItems"
               label="Health Professional"
-              pa-3
               required
               :rules="requiredRules"
-              v-model="User.userType"
+              v-model="User.profession"
             ></v-select>
-          </v-flex>
-
-          <v-flex xs12 sm7>
             <v-select
               menu-props="offsetY"
-              prepend-icon="local_hospital"
               :items="userTypeItems"
               label="User Type"
-              pa-3
               required
               :rules="requiredRules"
               v-model="User.userType"
             ></v-select>
-          </v-flex>
-        </v-layout>
-      </v-form>
+          </v-form>
+        </v-card-text>
 
-      <v-btn @click="addToAPI">Submit</v-btn>
-    </v-container>
-  </div>
+        <v-card-actions class="px-3">
+          <v-layout wrap py-3 px-0 ma-0>
+            <v-flex pt-3 xs12>
+              <router-link to="/login">
+                <v-btn class="ma-0 info" block round @click="addToAPI">Get Started!</v-btn>
+              </router-link>
+            </v-flex>
+            <v-flex class="text-xs-center" pt-4>
+              <p class="caption">
+                <span>Already Registed?</span>
+                <a href="/login">Sign In now</a>
+              </p>
+            </v-flex>
+          </v-layout>
+        </v-card-actions>
+
+      </v-card>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -121,7 +95,6 @@ export default {
         v =>
           v.match(/[0-9]/g) !== null ||
           "Password must contain at least one number"
-        // v => v.match(/[A-Z]/g) !== null || "At least one uppercase character is required"
       ],
       confirmPasswordRules: [
         v => !!v || "Password confirmation is required",
@@ -133,10 +106,19 @@ export default {
           /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
           "E-mail must be valid"
       ],
-      professionItems:[
-        "แพทย์ทั่วไป","แพทย์เฉพาะทาง","ทันตแพทย์","เภสัชกร","พยาบาล","นักวิทย์","นักสาธารณสุข","นักศึกษาวิทย์ฯ","ประชาชน","อื่น ๆ"
-        ],
-      userTypeItems: ["ผู้ถาม","ผู้ตอบ"]
+      professionItems: [
+        "แพทย์ทั่วไป",
+        "แพทย์เฉพาะทาง",
+        "ทันตแพทย์",
+        "เภสัชกร",
+        "พยาบาล",
+        "นักวิทย์",
+        "นักสาธารณสุข",
+        "นักศึกษาวิทย์ฯ",
+        "ประชาชน",
+        "อื่น ๆ"
+      ],
+      userTypeItems: ["ผู้ถาม", "ผู้ตอบ"]
     };
   },
   methods: {
@@ -165,3 +147,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.back {
+  background-image: url("https://images.pond5.com/white-polygons-and-free-space-footage-075635924_prevstill.jpeg");
+  background-size: cover;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height class="back" >
+  <v-container fluid fill-height class="back">
     <v-layout column align-center justify-center>
       <v-flex>
         <img src="@/assets/login_logo.png" width="170px">
