@@ -1,9 +1,9 @@
 <template>
 <v-app>
   <Navbar v-if="isShow()" />
-    <v-content class="mx-4">
+  <v-content>
     <router-view/>
-    </v-content>
+  </v-content>
 </v-app>
 </template>
 
@@ -29,7 +29,6 @@ export default {
     Event.$on("login", $user => {
       this.loggedIn = true;
       this.user = $user;
-      
 
       this.$router.push('/');
       //this.fetchBoardsData();
@@ -48,7 +47,6 @@ export default {
       //this.fetchBoardsData();
     }
   },
-
 
   methods: {
     redirectGuestToLogin() {

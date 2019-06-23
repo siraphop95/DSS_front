@@ -1,24 +1,41 @@
 <template>
-  <div class="text-md-center">
-    <h2>Login</h2>
-    <v-layout>
-      <v-flex xs6 offset-xs3>
-        <v-card>
-          <v-card-text>
-            <form @keyup.enter="logItIn">
-              <v-text-field v-model="login.username" label="Username" required></v-text-field>
-
+  <v-container fluid fill-height class="back" >
+    <v-layout column align-center justify-center>
+      <v-flex>
+        <img src="@/assets/login_logo.png" width="170px">
+        <p class="body-1 font-weight-light text-xs-center teal--text">Drug Suggestion Service</p>
+      </v-flex>
+      <v-flex>
+        <v-card width="410px" height="auto" class="elevation-8">
+          <v-card-title>
+            <v-layout column align-center pt-2>
+              <p class="headline">Sign In</p>
+              <p class="caption">
+                <span>or</span>
+                <a href="/louise">create an account</a>
+              </p>
+            </v-layout>
+          </v-card-title>
+          <v-card-text class="px-4 py-0">
+            <v-form @keyup.enter="logItIn">
+              <v-text-field v-model="login.username" label="Username" required autofocus></v-text-field>
               <v-text-field v-model="login.password" label="Password" type="password" required></v-text-field>
-            </form>
+            </v-form>
           </v-card-text>
-
-          <v-btn class="mb-3" success @click="logItIn">Login</v-btn>
+          <v-card-actions class="px-3">
+            <v-layout wrap py-3 px-0 ma-0>
+              <v-flex class="text-xs-right">
+                <a href="/forgotpassword">Forgot password?</a></v-flex>
+              <v-flex pt-4 xs12>
+                <v-btn class="ma-0 info" block round @click="logItIn">Sign In</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-card-actions>
         </v-card>
       </v-flex>
     </v-layout>
-  </div>
+  </v-container>
 </template>
-
 
 <script>
 import axios from "axios";
@@ -33,7 +50,6 @@ export default {
   },
   methods: {
     logItIn() {
-      
       axios
         .post(
           "https://logical-river-244214.appspot.com/login",
@@ -50,16 +66,13 @@ export default {
           }
           //everything pass
           else {
-            
-console.log(response)
+            console.log(response)
             let newToken = response.data.token;
             window.token = newToken;
             let user = response.data.user;
             localStorage.setItem("token", newToken);
             localStorage.setItem("user", JSON.stringify(user));
-            
             window.axios.defaults.params = { api_token: newToken };
-            
             Event.$emit("login", user);
           }
         });
@@ -67,3 +80,10 @@ console.log(response)
   }
 };
 </script>
+
+<style>
+.back {
+  background-image: url("https://images.pond5.com/white-polygons-and-free-space-footage-075635924_prevstill.jpeg");
+  background-size: cover;
+}
+</style>
