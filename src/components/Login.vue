@@ -18,8 +18,8 @@
           </v-card-title>
           <v-card-text class="px-4 py-0">
             <v-form @keyup.enter="logItIn">
-              <v-text-field v-model="login.username" label="Username" required autofocus></v-text-field>
-              <v-text-field v-model="login.password" label="Password" type="password" required></v-text-field>
+              <v-text-field v-model="login.username" label="Username" :error-messages="error_msg" required autofocus></v-text-field>
+              <v-text-field v-model="login.password" label="Password" type="password" :error-messages="error_msg" required></v-text-field>
             </v-form>
           </v-card-text>
           <v-card-actions class="px-3">
@@ -45,7 +45,8 @@ export default {
       login: {
           username: "",
           password: ""
-        }
+        },
+      error_msg: []
     };
   },
   methods: {
@@ -59,10 +60,12 @@ export default {
           //user not found
           if (response.data.status == 404) {
             console.log(response.data.message);
+            this.error_msg="username or password is incorrect"
           }
           //password not found
           else if (response.data.status == 405) {
             console.log(response.data.message);
+            this.error_msg="username or password is incorrect"
           }
           //everything pass
           else {
