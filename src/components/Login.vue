@@ -53,7 +53,7 @@ export default {
     logItIn() {
       axios
         .post(
-          "https://logical-river-244214.appspot.com/login",
+          "http://localhost:3000/login",
           this.login
         )
         .then(response => {
@@ -68,8 +68,8 @@ export default {
             this.error_msg="username or password is incorrect"
           }
           //everything pass
-          else {
-            console.log(response)
+          else if(response.data.status == 200){
+            // console.log(response.data)
             let newToken = response.data.token;
             window.token = newToken;
             let user = response.data.user;

@@ -1,6 +1,5 @@
 <template>
   <v-container>
-
     <!-- search -->
     <v-layout bm-5>
       <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
@@ -92,7 +91,7 @@ export default {
             },
             {
               name: "question",
-              weight: 0.10
+              weight: 0.1
             },
             {
               name: "keywords",
@@ -116,25 +115,29 @@ export default {
         this.Documents = response.data;
 
         axios
-          .get("https://logical-river-244214.appspot.com/documents/" + this.$route.params.docId)
+          .get(
+            "https://logical-river-244214.appspot.com/documents/" +
+              this.$route.params.docId
+          )
           .then(response => {
-
-            
             this.document = response.data;
-             console.log(this.document)
+            console.log(this.document);
             //Remove current document from Documents
             var currentId = this.document._id;
             this.Documents = this.Documents.filter(function(doc) {
               return doc._id != currentId;
             });
-            var key =""
+            var key = "";
 
-            for(var i=0;i<this.document.keywords.length;i++){
-              key+=this.document.keywords[i]+" "
+            if (typeof this.document.keywords !== "undefined") {
+              for (var i = 0; i < this.document.keywords.length; i++) {
+                key += this.document.keywords[i] + " ";
+              }
             }
-            //console.log(this.documents)
-             this.search = this.document.title + " " + this.document.question + " " + key;
 
+            //console.log(this.documents)
+            this.search =
+              this.document.title + " " + this.document.question + " " + key;
           })
           .catch(error => {
             console.log(error);

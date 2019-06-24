@@ -16,6 +16,9 @@ window.token = localStorage.getItem('token');
 window.axios = axios
 //window.axios.defaults.baseURL='http://weblloapi.dev'
 window.axios.defaults.params = { api_token: window.token }
+window.axios.defaults.headers.common = {
+  "Authorization": "Bearer "+window.token,
+};
 
 Vue.use(Vuetify)
 Vue.use(VeeValidate);
