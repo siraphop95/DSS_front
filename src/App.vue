@@ -30,7 +30,7 @@ export default {
     Event.$on("login", $user => {
       this.loggedIn = true;
       this.user = $user;
-      console.log(token);
+      // console.log(token);
       window.axios = axios;
       window.axios.defaults.headers.common = {
         Authorization: "Bearer " + window.token
@@ -70,14 +70,14 @@ export default {
           .get("https://logical-river-244214.appspot.com/authentication")
           .then(response => {
             if (response.status == 200) {
-              console.log("authen");
+              // console.log("authen");
             } else {
-              console.log("fail");
+              // console.log("fail");
               return this.$router.push("/logout");
             }
           })
           .catch(error => {
-            console.log("err");
+            // console.log("err");
             return this.$router.push("/logout");
             console.log(error);
           });
