@@ -49,9 +49,7 @@
         <v-card-actions class="px-3">
           <v-layout wrap py-3 px-0 ma-0>
             <v-flex pt-3 xs12>
-              <router-link to="/login">
-                <v-btn class="ma-0 info" block round @click="addToAPI">Get Started!</v-btn>
-              </router-link>
+              <v-btn class="ma-0 info" block round @click="addToAPI">Get Started!</v-btn>
             </v-flex>
             <v-flex class="text-xs-center" pt-4>
               <p class="caption">
@@ -138,6 +136,7 @@ export default {
           .post("https://logical-river-244214.appspot.com/users", newUser)
           .then(response => {
             console.log(response);
+            this.$router.push(this.$route.query.redirect || '/')
           })
           .catch(error => {
             console.log(error);

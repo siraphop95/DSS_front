@@ -1,5 +1,28 @@
 <template>
   <v-container>
+
+    <v-tabs v-model="active">
+      
+      <v-tab v-for="tab in tabs" :key="tab.name">{{tab.name}}</v-tab>
+      <!-- <v-tab>Document Detail</v-tab>
+      <v-tab active>Suggested Documents</v-tab>
+      <v-tab>Write Answer</v-tab>
+      <v-tab>Review Ansaaawer</v-tab> -->
+      
+      <v-tab-item v-for="tab in tabs" :key="tab.name">
+        <!-- {{tab.component}} -->
+        <DocumentDetail />
+        <!-- <v-card flat>
+          <v-card-text>Hello</v-card-text>
+          <v-card-actions>
+            <v-btn @click="next">Continue</v-btn>
+          </v-card-actions>
+        </v-card> -->
+        <v-btn @click="next">Continue</v-btn>
+      </v-tab-item>
+
+    </v-tabs>
+
     <v-layout text-xs-center wrap>
       <h2 class="grey--text">Write Answer</h2>
       <v-spacer></v-spacer>
@@ -67,7 +90,7 @@
     <v-btn flat>Cancel</v-btn>
 
 
-<!-- preview attach image -->
+    <!-- preview attach image -->
     <div v-for="(file, key) in files" v-bind:key="key">
       <div>
         <img class="preview" v-bind:ref="'image' +parseInt( key )" height="100px" width="150px">
@@ -78,18 +101,15 @@
   </v-container>
 </template>
 
-    <v-btn color="primary" @click="updateToAPI">Submit</v-btn>
-    <v-btn flat>Cancel</v-btn>
-  </v-container>
-</template>
-
 <script>
 import axios from "axios";
 import firebase from "firebase/app";
 import "firebase/storage";
+import DocumentDetail from '@/components/DocumentDetail'
 
 export default {
   name: "Answer",
+  components: { DocumentDetail },
   data() {
     return {
       files: [],
@@ -105,6 +125,13 @@ export default {
       ],
       requiredRules: [v => !!v || "required to fill"],
       user: [],
+      tabs: [
+        { name: "Document Detail", component: `<DocumentDetail />`},
+        { name: "Suggested Documents", component: `<DocumentDetail />` },
+        { name: "Write Answer", component: `<DocumentDetail />` },
+        { name: "Answer Review", component: `<DocumentDetail />` }
+      ],
+      active: null,
       chips: ["Watching movies", "Sleeping"],
       items: ["Watching movies", "Sleeping", "Streaming", "Eating"]
     };
@@ -196,6 +223,10 @@ export default {
     remove(item) {
       this.chips.splice(this.chips.indexOf(item), 1);
       this.chips = [...this.chips];
+    },
+    next () {
+      const active = parseInt(this.active)
+      this.active = (active < 2 ? active + 1 : 0)
     }
   }
 };
