@@ -20,7 +20,8 @@ import SuggestedDocuments from '@/components/SuggestedDocuments'
 import Answer from '@/components/Answer'
 import AnswerReview from '@/components/AnswerReview'
 import uploadTest from '@/components/uploadTest'
-
+import AnsweredView from '@/components/AnsweredView'
+import AskedView from '@/components/AskedView'
 Vue.use(Router)
 
 
@@ -127,6 +128,16 @@ export default new Router({
       path: '/upload',
       name: 'uploadTest',
       component: uploadTest
+    },
+    {
+      path: '/answeredview/:docId',
+      name: 'AnsweredView',
+      component: AnsweredView
+    },
+    {
+      path: '/askedview/:docId',
+      name: 'AskedView',
+      component: AskedView
     }
   ],
   mode: 'history'

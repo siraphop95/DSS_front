@@ -32,7 +32,7 @@
                     label="What is your Question?"
                     v-model="Doc.question"
                     :rules="inputRules"
-                    required auto-grow=true
+                    required auto-grow
                   ></v-textarea>
                 </v-flex>
                 <v-flex xs12 md3>

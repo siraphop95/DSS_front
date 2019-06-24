@@ -27,7 +27,7 @@
                 <td>{{ item.title }}</td>
                 <td>{{ item.question }}</td>
                 <td class="text-xs-right">{{ item.respondTime }}</td>
-                <router-link :to="{ path: 'documentDetail/' + item._id}">
+                <router-link :to="{ path: 'answeredview/' + item._id}">
                   <v-btn flat fab small class="info darken-3">
                     <v-icon>rate_review</v-icon>
                   </v-btn>

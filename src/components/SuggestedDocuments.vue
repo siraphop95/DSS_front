@@ -1,19 +1,5 @@
 <template>
   <v-container>
-    <v-layout text-xs-center wrap>
-      <h2 class="grey--text">List of documents</h2>
-      <v-spacer></v-spacer>
-      <router-link :to="{ path: '/documentDetail/' + this.$route.params.docId}">
-        <v-btn>Document Detail</v-btn>
-      </router-link>
-      <v-btn dark class="blue">Suggested Documents</v-btn>
-      <router-link :to="{ path: '/answer/' + this.$route.params.docId}">
-        <v-btn>Write Answer</v-btn>
-      </router-link>
-      <router-link :to="{ path: '/answerreview/' + this.$route.params.docId}">
-        <v-btn>Answer Review</v-btn>
-      </router-link>
-    </v-layout>
 
     <!-- search -->
     <v-layout bm-5>
