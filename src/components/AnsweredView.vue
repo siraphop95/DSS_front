@@ -10,19 +10,18 @@
 
       <v-tab-item>
         <DocumentDetail />
-        <v-btn class="info" block round @click="next">Continue</v-btn>
+        <v-btn class="info" block round @click="next">Next Page</v-btn>
       </v-tab-item>
       <v-tab-item>
         <SuggestedDocuments />
-        <v-btn class="info" block round @click="next">Continue</v-btn>
+        <v-btn class="info" block round @click="next">Next Page</v-btn>
       </v-tab-item>
       <v-tab-item>
         <Answer />
-        <v-btn class="info" block round @click="next">Continue</v-btn>
       </v-tab-item>
       <v-tab-item>
         <AnswerReview />
-        <v-btn class="info" block round @click="next">Continue</v-btn>
+        <v-btn class="info" block round @click="next">Go to Document Detail Page</v-btn>
       </v-tab-item>
     </v-tabs>
 

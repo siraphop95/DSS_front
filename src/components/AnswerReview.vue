@@ -1,17 +1,24 @@
 <template>
     <v-container>
-
+        <v-container v-if="IsAns()">
         <v-layout text-xs-center wrap>
-            <h2 class="grey--text">Review Answer</h2>
             <div v-if=success>
             <p>{{Documents.answerDetail}}</p>
-            
-            <v-img src="https://picsum.photos/510/300?random" aspect-ratio="1.7"></v-img>
-            <v-img src="https://firebasestorage.googleapis.com/v0/b/drug-suggestion-service.appspot.com/o/DSS%2F5d0b047ce8c326001252910e%2Fmedical-images-free-159878-6952218.jpg?alt=media&token=c76dd139-f7d8-4d53-93cd-2ec39689d98a" aspect-ratio="1.7"></v-img>
-            
+
+            <div v-if="IsImg()">
+            <v-flex v-for="img in Documents.fileURL" :key="img._id">
+                <v-img :src="Documents.fileURL[0]" aspect-ratio="1.7"></v-img>
+            </v-flex>
+            </div>
+
             </div>
         </v-layout>
-        
+        </v-container>
+        <v-container v-else>
+            <v-layout fluid>
+                <v-flex class="text-xs-center">There is no available answer yet</v-flex>
+            </v-layout>
+        </v-container>
     </v-container>
 </template>
 
@@ -23,6 +30,24 @@ export default {
             Documents:[],
             success: false
         }
+    },
+    methods:{
+    IsImg(){
+      if (this.Documents.fileURL != null){
+        return true
+      }
+      else{
+        return false
+      }
+    },
+    IsAns(){
+      if (this.Documents.answerDetail != null){
+        return true
+      }
+      else{
+        return false
+      }
+    }
     },
     mounted(){
         axios

@@ -1,83 +1,60 @@
 <template>
   <v-container>
-
     <v-form ref="form">
-      <v-layout justify-center>
-        <v-flex xs12 md10>
+      <v-layout row wrap justify-center>
+
+        <v-flex xs12 md12>
           <v-textarea
-              label="Write your Answer"
-              v-model="Doc.answerDetail"
-              :rules="inputRules" solo
-              required auto-grow 
+            label="Write your Answer"
+            v-model="Doc.answerDetail"
+            :rules="inputRules"
+            solo
+            required
+            auto-grow
+            full-width
           ></v-textarea>
         </v-flex>
+
+        <v-flex xs12 md12>
+          <v-combobox
+            v-model="hashtag"
+            label="Keywords"
+            chips
+            clearable
+            prepend-icon="local_offer"
+            multiple
+          ></v-combobox>
+        </v-flex>
+
       </v-layout>
     </v-form>
+    <v-layout row wrap>
+      <!-- attach image button start-->
+      <v-flex>
+        <v-btn large @click.native="selectFile" v-if="!lock">
+          <v-icon left aria-hidden="true">add_a_photo</v-icon>Attach File
+        </v-btn>
+        <input
+          id="files"
+          type="file"
+          name="file"
+          ref="uploadInput"
+          accept="image/*"
+          :multiple="true"
+          @change="onFileChange($event)"
+        >
+      </v-flex>
+      <!-- attach image button end -->
 
-<v-combobox
-    v-model="chips"
-    :items="items"
-    label="Your favorite hobbies"
-    chips
-    clearable
-    prepend-icon="filter_list"
-    solo
-    multiple
-  >
-    <template v-slot:selection="chips">
-      <v-chip
-        :selected="chips.selected"
-        close
-        @input="remove(chips.item)"
-      >
-        <strong>{{ chips.item }}</strong>&nbsp;
-        <span>(interest)</span>
-      </v-chip>
-    </template>
-  </v-combobox>
+      <!-- preview attach image -->
+      <v-flex v-for="(file, key) in files" v-bind:key="key" class="mt-2 ml-2">
+        <img class="preview" v-bind:ref="'image' +parseInt( key )" style="max-height: 100px ;">
+      </v-flex>
 
-      <!-- <v-combobox
-        v-model="chips"
-        :items="items"
-        label="Hashtag"
-        chips
-        prepend-icon="filter_list"
-        multiple
-      > -->
-        <!-- <template >
-          <v-chip close >
-            <strong>{{ chips.item }}</strong>;
-          </v-chip>
-        </template> -->
-      <!-- </v-combobox> -->
-
-
-    <!-- attach image button start-->
-    <v-btn @click.native="selectFile" v-if="!lock">
-      attach file
-      <v-icon right aria-hidden="true">add_a_photo</v-icon>
-    </v-btn>
-    <input
-      id="files"
-      type="file"
-      name="file"
-      ref="uploadInput"
-      accept="image/*"
-      :multiple="false"
-      @change="onFileChange($event)"
-    >
-    <!-- attach image button end -->
-    <v-btn color="primary" @click="upload(files)">Submit</v-btn>
-    <v-btn flat>Cancel</v-btn>
-
-
-    <!-- preview attach image -->
-    <div v-for="(file, key) in files" v-bind:key="key">
-      <div>
-        <img class="preview" v-bind:ref="'image' +parseInt( key )" height="100px" width="150px">
-        {{ file.name }}
-      </div>
-    </div>
+      <v-flex xs12 md12 class="mt-3">
+        <v-btn block color="primary" @click="upload(files)">Submit Answer</v-btn>
+      </v-flex>
+    </v-layout>
 
   </v-container>
 </template>
@@ -94,7 +71,6 @@ export default {
       files: [],
       lock: false,
       fileCount: 0,
-      html: '<h1>Hello</h1>',
       downloadURL: [],
       Doc: {
         answerDetail: ""
@@ -106,15 +82,16 @@ export default {
       requiredRules: [v => !!v || "required to fill"],
       user: [],
       tabs: [
-        { name: "Document Detail", component: `<DocumentDetail />`},
+        { name: "Document Detail", component: `<DocumentDetail />` },
         { name: "Suggested Documents", component: `<DocumentDetail />` },
         { name: "Write Answer", component: `<DocumentDetail />` },
         { name: "Answer Review", component: `<DocumentDetail />` }
       ],
       active: null,
-      chips: ['Programming', 'Playing video games', 'Watching movies', 'Sleeping'],
-        items: ['Streaming', 'Eating'],
-      chip1: true
+      hashtag: [],
+      // items: ["Streaming", "Eating"],
+      select: "Programming",
+      items: ["Programming", "Design", "Vue", "Vuetify"]
       // items: ["Watching movies", "Sleeping", "Streaming", "Eating"]
     };
   },
@@ -147,39 +124,41 @@ export default {
       for (var i = 0; i < file.length; i++) {
         var imageFile = file[i];
         console.log(imageFile.name);
-        this.uploadEachImage(imageFile,this.$route.params.docId);
+        this.uploadEachImage(imageFile, this.$route.params.docId);
       }
     },
-    uploadEachImage(imageFile,docId) {
+    uploadEachImage(imageFile, docId) {
       // return new Promise(function(resolve, reject) {
-        var storageRef = firebase.storage().ref("DSS/"+docId+"/"+ imageFile.name);
-        //Upload file task
-        var task = storageRef.put(imageFile);
+      var storageRef = firebase
+        .storage()
+        .ref("DSS/" + docId + "/" + imageFile.name);
+      //Upload file task
+      var task = storageRef.put(imageFile);
 
-        task.on(
-          "state_changed",
-          //progress
-          snapshot => {
-            var percentage =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            //uploader.value = percentage;
-          },
-          null,
-          //on complete
-          () => {
-            task.snapshot.ref.getDownloadURL().then(downloadUrl => {
-              console.log(downloadUrl);
-              this.downloadURL.push(downloadUrl)
-              this.fileCount++
-              //check if all file are uploaded
-              if(this.fileCount==this.files.length){
-                console.log(this.downloadURL)
-                this.fileCount=0
-                this.updateToAPI()
-              }
-            });
-          }
-        );
+      task.on(
+        "state_changed",
+        //progress
+        snapshot => {
+          var percentage =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          //uploader.value = percentage;
+        },
+        null,
+        //on complete
+        () => {
+          task.snapshot.ref.getDownloadURL().then(downloadUrl => {
+            console.log(downloadUrl);
+            this.downloadURL.push(downloadUrl);
+            this.fileCount++;
+            //check if all file are uploaded
+            if (this.fileCount == this.files.length) {
+              console.log(this.downloadURL);
+              this.fileCount = 0;
+              this.updateToAPI();
+            }
+          });
+        }
+      );
       // });
     },
     updateToAPI() {
@@ -206,9 +185,9 @@ export default {
       this.chips.splice(this.chips.indexOf(item), 1);
       this.chips = [...this.chips];
     },
-    next () {
-      const active = parseInt(this.active)
-      this.active = (active < 2 ? active + 1 : 0)
+    next() {
+      const active = parseInt(this.active);
+      this.active = active < 2 ? active + 1 : 0;
     }
   }
 };
