@@ -53,17 +53,17 @@ export default {
     logItIn() {
       axios
         .post(
-          "http://localhost:3000/login",
+          "https://logical-river-244214.appspot.com/login",
           this.login
         )
         .then(response => {
           //user not found
-          if (response.data.status == 404) {
+          if (response.data.status == 403) {
             console.log(response.data.message);
             this.error_msg="username or password is incorrect"
           }
           //password not found
-          else if (response.data.status == 405) {
+          else if (response.data.status == 403) {
             console.log(response.data.message);
             this.error_msg="username or password is incorrect"
           }

@@ -30,7 +30,11 @@ export default {
     Event.$on("login", $user => {
       this.loggedIn = true;
       this.user = $user;
-
+      console.log(token);
+      window.axios = axios;
+      window.axios.defaults.headers.common = {
+        Authorization: "Bearer " + window.token
+      };
       this.$router.push("/");
       //this.fetchBoardsData();
     });
@@ -38,6 +42,7 @@ export default {
     Event.$on("logout", () => {
       this.loggedIn = false;
       this.redirectGuestToLogin();
+      this.$router.push('/login');
     });
 
     if (token) {
@@ -61,19 +66,21 @@ export default {
             Authorization: "Bearer " + token
           }
         };
-        axios.get("http://localhost:3000/authentication")
-         .then((response)=>{
-           if(response.status==200){
-              console.log("authen")
-           }else {
-             console.log("out")
-             return this.$router.push("/login");
-           }
-         })
-         .catch((error)=>{
-           return this.$router.push("/login");
-           console.log(error)
-         })
+        axios
+          .get("https://logical-river-244214.appspot.com/authentication")
+          .then(response => {
+            if (response.status == 200) {
+              console.log("authen");
+            } else {
+              console.log("fail");
+              return this.$router.push("/logout");
+            }
+          })
+          .catch(error => {
+            console.log("err");
+            return this.$router.push("/logout");
+            console.log(error);
+          });
       }
     },
     isShow() {

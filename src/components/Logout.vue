@@ -20,12 +20,12 @@ export default {
        console.log(lMessage);
         Event.$emit('logout');
         
-        //this.$router.push('/');
+        
 			});
   },
     data() {
 			return {
-				message:"test"
+				message:"Log out"
 			}
 		}
 };

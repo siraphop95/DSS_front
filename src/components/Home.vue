@@ -128,7 +128,7 @@ export default {
     }
   },
   mounted() {
-
+    console.log("test: "+token)
     axios
       .get("https://logical-river-244214.appspot.com/new_documents")
       .then(response => {
