@@ -88,8 +88,8 @@ export default {
             }
           })
           .catch(error => {
-            // console.log("err");
-            return this.$router.push("/logout");
+            console.log("err");
+            //return this.$router.push("/logout");
             console.log(error);
           });
       }
