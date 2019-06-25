@@ -48,7 +48,7 @@
 import axios from "axios";
 import Fuse from "fuse.js";
 export default {
-  name: "Home",
+  name: "MyQuestion",
   data() {
     return {
       Documents: [],
@@ -104,14 +104,14 @@ export default {
     },
     filterdDocuments: function() {
       return this.Documents.filter(doc => {
-        return doc.title.match(this.search)
+        return doc.title.match(this.search) || doc.question.match(this.search)
       });
     }
   },
   mounted() {
     this.user = JSON.parse(localStorage.getItem("user"))
 
-    var url = "https://logical-river-244214.appspot.com/qn_documents/" + this.user.username
+    var url = "https://logical-river-244214.appspot.com/myqn_documents/" + this.user.username
     axios
       .get(url)
       .then(response => {

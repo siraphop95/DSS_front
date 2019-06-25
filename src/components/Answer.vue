@@ -2,7 +2,6 @@
   <v-container>
     <v-form ref="form">
       <v-layout row wrap justify-center>
-
         <v-flex xs12 md12>
           <v-textarea
             label="Write your Answer"
@@ -27,7 +26,6 @@
             deletable-chips
           ></v-combobox>
         </v-flex>
-
       </v-layout>
     </v-form>
     <v-layout row wrap>
@@ -57,7 +55,6 @@
         <v-btn block color="primary" @click="upload(files)">Submit Answer</v-btn>
       </v-flex>
     </v-layout>
-
   </v-container>
 </template>
 
@@ -124,9 +121,9 @@ export default {
       // this.fileName = file.name;
       // this.uploading = true;
 
-if(file.length==0){
-  this.updateToAPI();
-}
+      if (file.length == 0) {
+        this.updateToAPI();
+      }
       for (var i = 0; i < file.length; i++) {
         var imageFile = file[i];
         console.log(imageFile.name);
@@ -137,7 +134,7 @@ if(file.length==0){
       // return new Promise(function(resolve, reject) {
       var storageRef = firebase
         .storage()
-        .ref("DSS/" + docId + "/" + imageFile.name);
+        .ref("DSS/" + docId + "/newquestion" + imageFile.name);
       //Upload file task
       var task = storageRef.put(imageFile);
 
@@ -203,17 +200,13 @@ if(file.length==0){
     axios
       .get("https://logical-river-244214.appspot.com/drugs")
       .then(response => {
-        
-        for(let i=0;i<response.data.length;i++) {
-
-          this.items.push(response.data[i].tradeName)
+        for (let i = 0; i < response.data.length; i++) {
+          this.items.push(response.data[i].tradeName);
         }
-
       })
       .catch(error => {
         console.log(error);
       });
   }
-
 };
 </script>

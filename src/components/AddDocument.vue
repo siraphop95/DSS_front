@@ -239,7 +239,7 @@ export default {
         .post("https://logical-river-244214.appspot.com/documents", newDoc)
         .then(response => {
           console.log(response);
-          this.$router.push("/");
+          this.$router.push("/newquestion");
         })
         .catch(error => {
           console.log(error);

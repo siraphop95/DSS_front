@@ -68,7 +68,7 @@ export default {
       user: [],
       drawer: true,
       links: [
-        { icon: "dashboard", text: "Dashboard", route: "/" , type: "answerer"},
+        { icon: "dashboard", text: "Dashboard", route: "/newquestion" , type: "answerer"},
         { icon: "folder", text: "My Questions", route: "/myQuestions", type:"questioner"},
         { icon: "drafts", text: "My Answers", route: "/myAnswers", type: "answerer"},
         { icon: "drafts", text: "Reply Inbox", route: "/replyinbox", type: "questioner"}

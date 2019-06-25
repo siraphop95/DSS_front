@@ -41,7 +41,7 @@
                 </tr>
             </tbody>
         </table>
-        <router-link to="/">
+        <router-link to="/newquestion">
             <button class="btn btn-large btn-block btn-success full-width">To User</button>
         </router-link>
 
@@ -62,7 +62,7 @@
             Are you sure you want to delete this item? </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <router-link to="/">
+            <router-link to="/newquestion">
               <button type="button" class="btn btn-danger" @click="delDrug(did)">Delete</button>
             </router-link>
           </div>

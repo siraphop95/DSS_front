@@ -24,7 +24,7 @@
           <input type="text" class="form-control" placeholder="Email" v-model="User.email">
         </div>
       </div>
-      <router-link to="/">
+      <router-link to="/newquestion">
         <button
           type="submit"
           class="btn btn-large btn-block btn-primary full-width"

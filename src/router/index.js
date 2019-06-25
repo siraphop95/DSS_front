@@ -11,7 +11,7 @@ import Drugs from '@/components/Drugs'
 import Login from '@/components/Login'
 import Logout from '@/components/Logout'
 import Profile from '@/components/Profile'
-import Home from '@/components/Home'
+import NewQuestions from '@/components/NewQuestions'
 import Test from '@/components/Test'
 import Signup from '@/components/Signup'
 import LouiseTest from '@/components/LouiseTest'
@@ -25,9 +25,6 @@ import AnsweredView from '@/components/AnsweredView'
 import AskedView from '@/components/AskedView'
 Vue.use(Router)
 
-
-
-
 export default new Router({
   routes: [{
       path: '/test',
@@ -35,9 +32,9 @@ export default new Router({
       component: Test
     },
     {
-      path: '/',
-      name: 'Home',
-      component: Home
+      path: '/newquestion',
+      name: 'NewQuestions',
+      component: NewQuestions
     },
     {
       path: '/addUser',
@@ -144,6 +141,10 @@ export default new Router({
       path: '/askedview/:docId',
       name: 'AskedView',
       component: AskedView
+    },
+    {
+      path: '/',
+      
     }
   ],
   mode: 'history'

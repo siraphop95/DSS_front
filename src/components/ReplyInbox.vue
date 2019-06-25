@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout text-xs-center wrap>
-      <h2>List Answers belonging to the {{user.username}}</h2>
+      <h2>Reply Inbox for {{user.username}}</h2>
     </v-layout>
 
     <!-- search -->
@@ -27,7 +27,7 @@
                 <td>{{ item.title }}</td>
                 <td>{{ item.question }}</td>
                 <td class="text-xs-right">{{ item.respondTime }}</td>
-                <router-link :to="{ path: 'answeredview/' + item._id}">
+                <router-link :to="{ path: 'askedview/' + item._id}">
                   <v-btn flat fab small class="info darken-3">
                     <v-icon>rate_review</v-icon>
                   </v-btn>
@@ -110,30 +110,15 @@ export default {
         : 0
     },
     filterdDocuments: function() {
-      if (this.search == "") {
-        return this.Documents.filter(doc => {
-          return doc.title.match("abc")
-        });
-      } else {
-        var options = {
-          shouldSort: true,
-          threshold: 0.6,
-          location: 0,
-          distance: 100,
-          maxPatternLength: 32,
-          minMatchCharLength: 1,
-          keys: ["title"]
-        };
-        var fuse = new Fuse(this.Documents, options);
-        var result = fuse.search(this.search);
-        return result;
-      }
+      return this.Documents.filter(doc => {
+        return doc.title.match(this.search) || doc.question.match(this.search)
+      });
     }
   },
   mounted() {
     this.user = JSON.parse(localStorage.getItem("user"));
     axios
-      .get("https://logical-river-244214.appspot.com/ans_documents/"+this.user.username)
+      .get("https://logical-river-244214.appspot.com/reply_inbox_documents/"+this.user.username)
       .then(response => {
         console.log(response.data);
         this.Documents = response.data;

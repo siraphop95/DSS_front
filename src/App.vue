@@ -35,7 +35,7 @@ export default {
       window.axios.defaults.headers.common = {
         Authorization: "Bearer " + window.token
       };
-      this.$router.push("/");
+      this.$router.push("/newquestion");
       //this.fetchBoardsData();
     });
 
