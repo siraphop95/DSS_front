@@ -36,7 +36,7 @@
             </template>
           </v-data-table>
           <div class="text-xs-center pt-2">
-            <v-pagination v-model="pagination.page" :length="6"></v-pagination>
+            <v-pagination v-model="pagination.page" :length="pageLength"></v-pagination>
           </div>
         </v-flex>
       </v-layout>
@@ -55,7 +55,10 @@ export default {
       did: "",
       search: "",
       user: [],
-      pagination: {},
+      pagination: {
+        rowsPerPage: 10
+      },
+      pageLength: 1,
       headers: [
         {
           sortable: false,
@@ -99,9 +102,6 @@ export default {
     }
   },
   computed: {
-    pages() {
-      return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0
-    },
     filterdDocuments: function() {
       return this.Documents.filter(doc => {
         return doc.title.match(this.search) || doc.question.match(this.search)
@@ -115,8 +115,8 @@ export default {
     axios
       .get(url)
       .then(response => {
-        //console.log(response.data)
         this.Documents = response.data
+        this.pageLength = Math.ceil(this.Documents.length/10)
       })
       .catch(error => {
         console.log(error)

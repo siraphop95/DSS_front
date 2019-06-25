@@ -5,8 +5,10 @@
     </v-layout>
 
     <!-- search -->
-    <v-layout bm-5>
-      <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+    <v-layout class="mb-2" justify-center>
+      <v-flex xs12 md11>
+        <v-text-field v-model="search" append-icon="search" label="Search..." single-line hide-details></v-text-field>
+      </v-flex>
     </v-layout>
 
     <!-- v-data-table -->
@@ -28,7 +30,7 @@
                 <td>{{ item.question }}</td>
                 <td class="text-xs-right">{{ item.respondTime }}</td>
                 <router-link :to="{ path: 'answeredview/' + item._id}">
-                  <v-btn flat fab small class="info darken-3">
+                  <v-btn left flat fab small class="info darken-3">
                     <v-icon>rate_review</v-icon>
                   </v-btn>
                 </router-link>
@@ -36,7 +38,7 @@
             </template>
           </v-data-table>
           <div class="text-xs-center pt-2">
-            <v-pagination v-model="pagination.page" :length="6"></v-pagination>
+            <v-pagination v-model="pagination.page" :length="pageLength"></v-pagination>
           </div>
         </v-flex>
       </v-layout>
@@ -53,7 +55,10 @@ export default {
       Documents: [],
       did: "",
       search: "",
-      pagination: {},
+      pagination: {
+        rowsPerPage: 10
+      },
+      pageLength: 1,
       headers: [
         {
           sortable: false,
@@ -97,14 +102,6 @@ export default {
     }
   },
   computed: {
-    pages() {
-      console.log("rowsPerPage" + this.pagination.rowsPerPage)
-      console.log("length" + this.items.length)
-
-      return this.pagination.rowsPerPage
-        ? Math.ceil(this.items.length / this.pagination.rowsPerPage)
-        : 0
-    },
     filterdDocuments: function() {
       return this.Documents.filter(doc => {
         return doc.title.match(this.search) || doc.question.match(this.search)
@@ -117,6 +114,8 @@ export default {
       .then(response => {
         console.log(response.data);
         this.Documents = response.data;
+        this.pageLength = Math.ceil(this.Documents.length/10)
+        console.log(typeof(this.pageLength))
       })
       .catch(error => {
         console.log(error);

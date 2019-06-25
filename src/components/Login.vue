@@ -24,8 +24,8 @@
           </v-card-text>
           <v-card-actions class="px-3">
             <v-layout wrap py-3 px-0 ma-0>
-              <v-flex class="text-xs-right">
-                <a href="/forgotpassword">Forgot password?</a></v-flex>
+              <!-- <v-flex class="text-xs-right">
+                <a href="/forgotpassword">Forgot password?</a></v-flex> -->
               <v-flex pt-4 xs12>
                 <v-btn class="ma-0 info" block round @click="logItIn">Sign In</v-btn>
               </v-flex>
