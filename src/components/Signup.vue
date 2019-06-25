@@ -11,7 +11,7 @@
         
         <v-card-text class="px-4 py-0">
           <v-form ref="form">
-            <v-text-field label="Username" v-model="User.username" :rules="inputRules" autofocus></v-text-field>
+            <v-text-field label="Username" v-model="User.username" :rules="inputRules" :error-messages="error_msg" autofocus></v-text-field>
             <v-text-field
               label="Password"
               :type="'password'"
@@ -81,6 +81,7 @@ export default {
         profession: "",
         userType: ""
       },
+      error_msg: [],
       show: false,
       inputRules: [
         v => !!v || "required to fill",
@@ -136,14 +137,18 @@ export default {
         axios
           .post("https://logical-river-244214.appspot.com/users", newUser)
           .then(response => {
-            console.log(response);
+            if (response.status == 201) {
+            this.error_msg="username already existed"
+          }
+          else{
             this.$router.push("/login");
+          }
+            
           })
           .catch(error => {
             console.log(error);
           });
       }
-
     },
     changeValue(value){
       var temp

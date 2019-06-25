@@ -34,21 +34,22 @@
     <v-navigation-drawer
       id="app-drawer"
       v-model="drawer"
-      app
+      app dark 
       floating
       persistent
       mobile-break-point="991"
       width="260"
+      class="indigo"
     >
-      <v-layout align-center justify-center>
+      <!-- <v-layout align-center justify-center>
         <v-btn class="mt-5 grey lighten-5" router to="/addDocument" v-if="user.userType=='questioner'">
           <v-icon left>add_circle</v-icon>
           <span>New Document</span>
         </v-btn>
-      </v-layout>
+      </v-layout> -->
 
       <v-list class="mt-5">
-        <v-list-tile v-for="link in filteredByType" :key="link.text" router :to="link.route" >
+        <v-list-tile v-for="link in filteredByType" :key="link.text" router :to="link.route" class="ma-3" >
           <v-list-tile-action>
             <v-icon>{{ link.icon }}</v-icon>
           </v-list-tile-action>
@@ -68,11 +69,12 @@ export default {
       user: [],
       drawer: true,
       links: [
+        { icon: "add_circle", text: "Create New Question", route: "/addDocument" , type: "questioner"},
         { icon: "dashboard", text: "New Questions", route: "/newquestion" , type: "answerer"},
         { icon: "folder", text: "My Questions", route: "/myQuestions", type:"questioner"},
         { icon: "drafts", text: "My Answers", route: "/myAnswers", type: "answerer"},
-        { icon: "drafts", text: "Reply Inbox", route: "/replyinbox", type: "questioner"}
-        // { icon: "account_balance", text: "Database", route: "/database", type: ["questioner",]}
+        { icon: "drafts", text: "Reply Inbox", route: "/replyinbox", type: "questioner"},
+        { icon: "account_balance", text: "Database", route: "/database", type: true }
       ],
       items: [
         { title: "Manage Profile", route: "/profile" },
@@ -87,7 +89,7 @@ export default {
      filteredByType: function() {
       var newUserType = this.user.userType
       return this.links.filter(function(link) {
-        return newUserType == link.type
+        return newUserType == link.type || link.type == true
      })
    }
   }
@@ -104,5 +106,9 @@ export default {
       margin-bottom: 17px;
     }
   }
+}
+a.primary--text {
+  color: #e5e9ec !important;
+  caret-color: #f4f4f4 !important;
 }
 </style>
