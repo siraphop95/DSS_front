@@ -27,7 +27,7 @@
                 <td>{{ item.title }}</td>
                 <td>{{ item.question }}</td>
                 <td class="text-xs-right">{{ item.respondTime }}</td>
-                <router-link :to="{ path: 'answeredview/' + item._id}">
+                <router-link :to="{ path: 'askedview/' + item._id}">
                   <v-btn flat fab small class="info darken-3">
                     <v-icon>rate_review</v-icon>
                   </v-btn>
@@ -36,7 +36,7 @@
             </template>
           </v-data-table>
           <div class="text-xs-center pt-2">
-            <v-pagination v-model="pagination.page" :length="6"></v-pagination>
+            <v-pagination v-model="pagination.page" :length="pageLength"></v-pagination>
           </div>
         </v-flex>
       </v-layout>
@@ -57,7 +57,10 @@ export default {
       user: [],
       did: "",
       search: "",
-      pagination: {},
+      pagination: {
+        rowsPerPage: 10
+      },
+      pageLength: 1,
       headers: [
         {
           sortable: false,
@@ -101,14 +104,6 @@ export default {
     }
   },
   computed: {
-    pages() {
-      console.log("rowsPerPage" + this.pagination.rowsPerPage)
-      console.log("length" + this.items.length)
-
-      return this.pagination.rowsPerPage
-        ? Math.ceil(this.items.length / this.pagination.rowsPerPage)
-        : 0
-    },
     filterdDocuments: function() {
       if (this.search == "") {
         return this.Documents.filter(doc => {
@@ -135,8 +130,9 @@ export default {
     axios
       .get("https://logical-river-244214.appspot.com/ans_documents/"+this.user.username)
       .then(response => {
-        console.log(response.data);
-        this.Documents = response.data;
+        console.log(response.data)
+        this.Documents = response.data
+        this.pageLength = Math.ceil(this.Documents.length/10)
       })
       .catch(error => {
         console.log(error);
