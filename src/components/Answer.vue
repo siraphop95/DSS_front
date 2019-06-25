@@ -123,6 +123,10 @@ export default {
     upload(file) {
       // this.fileName = file.name;
       // this.uploading = true;
+
+if(file.length==0){
+  this.updateToAPI();
+}
       for (var i = 0; i < file.length; i++) {
         var imageFile = file[i];
         console.log(imageFile.name);
@@ -166,7 +170,9 @@ export default {
     updateToAPI() {
       let newDoc = {
         answerDetail: this.Doc.answerDetail,
-        fileURL: this.downloadURL
+        fileURL: this.downloadURL,
+        medicalPersonalUsername: this.user.username,
+        keywords: this.hashtag
       };
       console.log(newDoc);
       axios
@@ -193,20 +199,16 @@ export default {
     }
   },
   mounted() {
+    this.user = JSON.parse(localStorage.getItem("user"));
     axios
       .get("https://logical-river-244214.appspot.com/drugs")
       .then(response => {
         
-        console.log("TEST:"+response.data.length)
         for(let i=0;i<response.data.length;i++) {
 
-          console.log("drug"+i)
-          console.log(response.data[i].tradeName)
           this.items.push(response.data[i].tradeName)
-          console.log(this.items)
         }
 
-        console.log(this.hashtag);
       })
       .catch(error => {
         console.log(error);

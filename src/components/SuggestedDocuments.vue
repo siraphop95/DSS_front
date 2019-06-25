@@ -102,7 +102,7 @@ export default {
 
         var fuse = new Fuse(this.Documents, options);
         var result = fuse.search(this.search);
-        console.log(result);
+        // console.log(result);
         return result;
       }
     }
@@ -121,7 +121,7 @@ export default {
           )
           .then(response => {
             this.document = response.data;
-            console.log(this.document);
+            // console.log(this.document);
             //Remove current document from Documents
             var currentId = this.document._id;
             this.Documents = this.Documents.filter(function(doc) {

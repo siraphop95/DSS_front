@@ -64,7 +64,7 @@ export default {
         axios
       .get("https://logical-river-244214.appspot.com/documents/" + this.$route.params.docId)
       .then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         this.Documents = response.data
         this.success = true
       })
