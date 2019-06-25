@@ -18,11 +18,13 @@
         <v-flex xs12 md12>
           <v-combobox
             v-model="hashtag"
+            :items="items"
             label="Keywords"
             chips
             clearable
             prepend-icon="local_offer"
             multiple
+            deletable-chips
           ></v-combobox>
         </v-flex>
 
@@ -91,7 +93,7 @@ export default {
       hashtag: [],
       // items: ["Streaming", "Eating"],
       select: "Programming",
-      items: ["Programming", "Design", "Vue", "Vuetify"]
+      items: []
       // items: ["Watching movies", "Sleeping", "Streaming", "Eating"]
     };
   },
@@ -189,6 +191,27 @@ export default {
       const active = parseInt(this.active);
       this.active = active < 2 ? active + 1 : 0;
     }
+  },
+  mounted() {
+    axios
+      .get("https://logical-river-244214.appspot.com/drugs")
+      .then(response => {
+        
+        console.log("TEST:"+response.data.length)
+        for(let i=0;i<response.data.length;i++) {
+
+          console.log("drug"+i)
+          console.log(response.data[i].tradeName)
+          this.items.push(response.data[i].tradeName)
+          console.log(this.items)
+        }
+
+        console.log(this.hashtag);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
+
 };
 </script>
