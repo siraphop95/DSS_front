@@ -6,6 +6,7 @@ import UpdateUser from '@/components/UpdateUser'
 import AddDocument from '@/components/AddDocument'
 import MyQuestions from '@/components/MyQuestions'
 import MyAnswers from '@/components/MyAnswers'
+import ReplyInbox from '@/components/ReplyInbox'
 import Drugs from '@/components/Drugs'
 import Login from '@/components/Login'
 import Logout from '@/components/Logout'
@@ -67,6 +68,11 @@ export default new Router({
       path: '/myAnswers',
       name: 'MyAnswers',
       component: MyAnswers
+    },
+    {
+      path: '/replyinbox',
+      name: 'ReplyInbox',
+      component: ReplyInbox
     },
     {
       path: '/drugs',

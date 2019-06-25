@@ -13,9 +13,12 @@
             </v-flex>
             <v-flex v-if="IsImg()">
             <v-flex class="title indigo--text text-xs-left pt-3">Attached file(s):</v-flex>
-            <v-flex v-for="n in Documents.fileURL.length" :key="n">
-                <v-img :src="Documents.fileURL[n-1]" aspect-ratio="3" class="ma-1"></v-img>
-            </v-flex>
+            <!-- <v-flex v-for="n in Documents.fileURL.length" :key="n">
+                <v-img :src="Documents.fileURL[n-1]" aspect-ratio="4" class="ma-1"></v-img>
+            </v-flex> -->
+            <v-flex v-for="n in Documents.fileURL.length" v-bind:key="n" class="mt-2 ml-2">
+        <img :src="Documents.fileURL[n-1]" style="max-height: 100px ;">
+      </v-flex>
             </v-flex>
             </v-container>
         </v-layout>

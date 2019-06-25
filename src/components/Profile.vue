@@ -1,11 +1,34 @@
 <template>
   <v-container>
-    <v-layout text-xs-center wrap>
-      
+
+    <!-- activities presentation -->
+    <v-layout column align-center justify-center>
+      <v-flex class="headline indigo--text">My Profile</v-flex>
+      <v-card class="elevation-8 mt-3">
+        <v-layout row wrap justify-center ma-2 class="text-xs-center">
+          <v-flex xs12 md12>
+            <div class="indigo--text">Username</div>
+            <div>{{ user.username }}</div>
+          </v-flex>
+          <v-flex xs12 md12>
+            <div class="indigo--text">Firstname</div>
+            <div>{{ user.firstName }}</div>
+          </v-flex>
+          <v-flex xs12 md12>
+            <div class="indigo--text">Lastname</div>
+            <div>{{ user.lastName }}</div>
+          </v-flex>
+          <v-flex xs12 md12>
+            <div class="indigo--text">Email</div>
+            <div>{{ user.email }}</div>
+          </v-flex>
+        </v-layout>
+      </v-card>
 
       <!-- dialog -->
+      <v-layout text-xs-center wrap class="mt-3"> 
       <v-dialog max-width="600px" v-model="dialog">
-        <v-btn flat slot="activator" class="success" @click="modifyItem(user)">Manage Profile</v-btn>
+        <v-btn flat dark slot="activator" class="indigo" @click="modifyItem(user)">Manage Profile</v-btn>
         <v-card>
           <v-card-text>
             <v-form ref="form" class="px-3">
@@ -14,44 +37,18 @@
               <v-textarea v-model="updatedUser.lastName" label="Last Name" prepend-icon="edit"></v-textarea>
               <v-text-field v-model="updatedUser.email" label="Email" prepend-icon="edit"></v-text-field>
               <v-spacer></v-spacer>
-              <v-btn flat @click="updateUser" class="success mx-0 mt-3" :loading="loading">OK</v-btn>
+              <v-btn flat dark @click="updateUser" class="indigo mx-0 mt-3" :loading="loading">OK</v-btn>
               <v-btn
-                flat
+                flat dark
                 @click="dialog=!dialog"
-                class="success mx-0 mt-3"
+                class="indigo mx-0 mt-3"
                 :loading="loading"
               >Cancel</v-btn>
             </v-form>
           </v-card-text>
         </v-card>
       </v-dialog>
-
-      <!-- activities presentation -->
-    </v-layout>
-    <v-layout column align-center justify-center>
-      <v-flex class="headline indigo--text">
-        My Profile
-      </v-flex>
-    <v-card width="410px" height="auto" class="elevation-8 mt-3">
-      <v-layout row wrap >
-        <v-flex xs12 sm4 md2>
-          <div class="grey--text">Name</div>
-          <div>{{ user.username }}</div>
-        </v-flex>
-        <v-flex xs6 sm4 md2>
-          <div class="grey--text">Status</div>
-          <div>{{ user.firstName }}</div>
-        </v-flex>
-        <v-flex xs6 sm4 md12>
-          <div class="grey--text">Content</div>
-          <div>{{ user.lastName }}</div>
-        </v-flex>
-        <v-flex xs2 sm4 md2>
-          <div class="grey--text">Category</div>
-          <div>{{ user.email }}</div>
-        </v-flex>
       </v-layout>
-    </v-card>
     </v-layout>
   </v-container>
 </template>
@@ -88,7 +85,10 @@ export default {
       };
       console.log(newUser);
       axios
-        .post("https://logical-river-244214.appspot.com/users/" + this.user._id, newUser)
+        .post(
+          "https://logical-river-244214.appspot.com/users/" + this.user._id,
+          newUser
+        )
         .then(response => {
           console.log(response);
           localStorage.setItem("user", JSON.stringify(response.data));

@@ -41,14 +41,14 @@
       width="260"
     >
       <v-layout align-center justify-center>
-        <v-btn class="mt-5 grey lighten-5" router to="/addDocument">
+        <v-btn class="mt-5 grey lighten-5" router to="/addDocument" v-if="user.userType=='questioner'">
           <v-icon left>add_circle</v-icon>
           <span>New Document</span>
         </v-btn>
       </v-layout>
 
       <v-list class="mt-5">
-        <v-list-tile v-for="link in links" :key="link.text" router :to="link.route">
+        <v-list-tile v-for="link in filteredByType" :key="link.text" router :to="link.route" >
           <v-list-tile-action>
             <v-icon>{{ link.icon }}</v-icon>
           </v-list-tile-action>
@@ -68,9 +68,10 @@ export default {
       user: [],
       drawer: true,
       links: [
-        { icon: "dashboard", text: "Dashboard", route: "/" },
-        { icon: "folder", text: "My Questions", route: "/myQuestions" },
-        { icon: "drafts", text: "My Answers", route: "/myAnswers" }
+        { icon: "dashboard", text: "Dashboard", route: "/" , type: "answerer"},
+        { icon: "folder", text: "My Questions", route: "/myQuestions", type:"questioner"},
+        { icon: "drafts", text: "My Answers", route: "/myAnswers", type: "answerer"},
+        { icon: "drafts", text: "Reply Inbox", route: "/replyinbox", type: "questioner"}
       ],
       items: [
         { title: "Manage Profile", route: "/profile" },
@@ -80,8 +81,14 @@ export default {
   },
   mounted() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    console.log("test")
-    console.log(this.user)
+  },
+  computed: {
+     filteredByType: function() {
+      var newUserType = this.user.userType
+      return this.links.filter(function(link) {
+        return link.type == newUserType
+     })
+   }
   }
 };
 </script>
