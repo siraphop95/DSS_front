@@ -13,10 +13,6 @@
         <v-btn class="info" block round @click="next">Next Page</v-btn>
       </v-tab-item>
       <v-tab-item>
-        <SuggestedDocuments />
-        <v-btn class="info" block round @click="next">Next Page</v-btn>
-      </v-tab-item>
-      <v-tab-item>
         <AnswerReview />
         <v-btn class="info" block round @click="next">Go to Document Detail Page</v-btn>
       </v-tab-item>
@@ -27,22 +23,18 @@
 
 <script>
 import DocumentDetail from '@/components/DocumentDetail'
-import SuggestedDocuments from '@/components/SuggestedDocuments'
-import Answer from '@/components/Answer'
 import AnswerReview from '@/components/AnswerReview'
 
 export default {
-  name: "AskedView",
+  name: "View2Tabs",
   components: { 
     DocumentDetail,
-    SuggestedDocuments,
     AnswerReview 
   },
   data() {
     return {
       tabs: [
         { name: "Document Detail", icon: "assignment"},
-        { name: "Suggested Documents", icon: "announcement" },
         { name: "Answer Review", icon: "done_outline" }
       ],
       active: null

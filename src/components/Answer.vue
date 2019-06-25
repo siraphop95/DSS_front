@@ -69,9 +69,9 @@
         <v-flex xs12 md12 class="mt-3">
           <v-btn block color="primary" @click="upload(files)">Submit Answer</v-btn>
         </v-flex>
+
       </v-layout>
     </v-form>
-
   </v-container>
 </template>
 
@@ -88,24 +88,24 @@ export default {
       lock: false,
       fileCount: 0,
       downloadURL: [],
+      active: null,
+      hashtag: [],
+      items: [],
+      user: [],
       Doc: {
-        answerDetail: ""
+        answerDetail: "",
+        revisedQuestion: ""
       },
       inputRules: [
         v => !!v || "required to fill",
         v => v.length >= 8 || "must be more than 8 characters"
       ],
-      requiredRules: [v => !!v || "required to fill"],
-      user: [],
       tabs: [
-        { name: "Document Detail", component: `<DocumentDetail />` },
-        { name: "Suggested Documents", component: `<DocumentDetail />` },
-        { name: "Write Answer", component: `<DocumentDetail />` },
-        { name: "Answer Review", component: `<DocumentDetail />` }
-      ],
-      active: null,
-      hashtag: [],
-      items: []
+        { name: "Document Detail" },
+        { name: "Suggested Documents" },
+        { name: "Write Answer" },
+        { name: "Answer Review" }
+      ]
     };
   },
   methods: {
@@ -179,8 +179,10 @@ export default {
       // });
     },
     updateToAPI() {
+      if (this.$refs.form.validate()) {
       let newDoc = {
         answerDetail: this.Doc.answerDetail,
+        revisedQuestion: this.Doc.revisedQuestion,
         fileURL: this.downloadURL,
         medicalPersonalUsername: this.user.username,
         keywords: this.hashtag
@@ -190,19 +192,12 @@ export default {
         .post("https://logical-river-244214.appspot.com/documents/" + this.$route.params.docId,newDoc)
         .then(response => {
           console.log(response);
-          // this.$router.push("/askedview"+this.$route.params.docId);
+          this.$router.push("/myanswers");
         })
         .catch(error => {
           console.log(error);
         });
-    },
-    remove(item) {
-      this.chips.splice(this.chips.indexOf(item), 1);
-      this.chips = [...this.chips];
-    },
-    next() {
-      const active = parseInt(this.active);
-      this.active = active < 2 ? active + 1 : 0;
+      }
     }
   },
   mounted() {

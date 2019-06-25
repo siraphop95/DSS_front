@@ -21,8 +21,9 @@ import SuggestedDocuments from '@/components/SuggestedDocuments'
 import Answer from '@/components/Answer'
 import AnswerReview from '@/components/AnswerReview'
 import uploadTest from '@/components/uploadTest'
-import AnsweredView from '@/components/AnsweredView'
-import AskedView from '@/components/AskedView'
+import View4Tabs from '@/components/View4Tabs'
+import View3Tabs from '@/components/View3Tabs'
+import View2Tabs from '@/components/View2Tabs'
 Vue.use(Router)
 
 export default new Router({
@@ -133,14 +134,19 @@ export default new Router({
       component: uploadTest
     },
     {
-      path: '/answeredview/:docId',
-      name: 'AnsweredView',
-      component: AnsweredView
+      path: '/view4tabs/:docId',
+      name: 'View4Tabs',
+      component: View4Tabs
     },
     {
-      path: '/askedview/:docId',
-      name: 'AskedView',
-      component: AskedView
+      path: '/view3tabs/:docId',
+      name: 'View3Tabs',
+      component: View3Tabs
+    },
+    {
+      path: '/view2tabs/:docId',
+      name: 'View2Tabs',
+      component: View2Tabs
     },
     {
       path: '/',

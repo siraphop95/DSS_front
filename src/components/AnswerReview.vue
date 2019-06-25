@@ -6,7 +6,7 @@
             <v-flex class="title indigo--text text-xs-left">Answer:</v-flex>
             <v-flex>
             <v-card fluid>
-              <v-card-text>
+              <v-card-text class="subheading">
                 {{Documents.answerDetail}}
               </v-card-text>
             </v-card>

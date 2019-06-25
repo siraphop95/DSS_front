@@ -35,7 +35,7 @@ import Answer from '@/components/Answer'
 import AnswerReview from '@/components/AnswerReview'
 
 export default {
-  name: "AnsweredView",
+  name: "View4Tabs",
   components: { 
     DocumentDetail,
     SuggestedDocuments,

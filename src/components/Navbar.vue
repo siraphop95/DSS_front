@@ -68,10 +68,11 @@ export default {
       user: [],
       drawer: true,
       links: [
-        { icon: "dashboard", text: "Dashboard", route: "/newquestion" , type: "answerer"},
+        { icon: "dashboard", text: "New Questions", route: "/newquestion" , type: "answerer"},
         { icon: "folder", text: "My Questions", route: "/myQuestions", type:"questioner"},
         { icon: "drafts", text: "My Answers", route: "/myAnswers", type: "answerer"},
         { icon: "drafts", text: "Reply Inbox", route: "/replyinbox", type: "questioner"}
+        // { icon: "account_balance", text: "Database", route: "/database", type: ["questioner",]}
       ],
       items: [
         { title: "Manage Profile", route: "/profile" },
@@ -86,7 +87,7 @@ export default {
      filteredByType: function() {
       var newUserType = this.user.userType
       return this.links.filter(function(link) {
-        return link.type == newUserType
+        return newUserType == link.type
      })
    }
   }

@@ -24,9 +24,9 @@
             <ul v-for="key in auser.keywords" v-bind:key="key">{{key}}</ul>
           </td>
           <td>
-            <!-- <router-link :to="{ path: 'answeredview/' + item._id}"> -->
+            <router-link :to="{ path: '/view2tabs/' + auser._id}">
               <button>view</button>
-            <!-- </router-link> -->
+            </router-link>
           </td>
           <!-- <td class="text-left">
             <router-link :to="{ path: 'updateuser/' + auser._id}">
