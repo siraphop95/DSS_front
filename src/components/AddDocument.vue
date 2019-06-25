@@ -239,7 +239,9 @@ export default {
         .post("https://logical-river-244214.appspot.com/documents", newDoc)
         .then(response => {
           console.log(response);
-          this.$router.push("/newquestion");
+
+          this.$router.push("/myquestions");
+
         })
         .catch(error => {
           console.log(error);

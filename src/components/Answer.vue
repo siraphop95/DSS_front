@@ -2,6 +2,21 @@
   <v-container>
     <v-form ref="form">
       <v-layout row wrap justify-center>
+
+        <v-flex class="title my-2 indigo--text">Revised Questions (optional):</v-flex>
+
+        <v-flex xs12 md12>
+          <v-textarea
+            label="Revise the Question (optional)"
+            v-model="Doc.revisedQuestion"
+            auto-grow
+            solo
+            full-width
+          ></v-textarea>
+        </v-flex>
+
+        <v-flex class="title my-2 indigo--text">Answer:</v-flex>
+
         <v-flex xs12 md12>
           <v-textarea
             label="Write your Answer"
@@ -27,34 +42,36 @@
           ></v-combobox>
         </v-flex>
       </v-layout>
+
+      <v-layout row wrap>
+        <!-- attach image button start-->
+        <v-flex>
+          <v-btn large @click.native="selectFile" v-if="!lock">
+            <v-icon left aria-hidden="true">add_a_photo</v-icon>Attach File
+          </v-btn>
+          <input
+            id="files"
+            type="file"
+            name="file"
+            ref="uploadInput"
+            accept="image/*"
+            :multiple="true"
+            @change="onFileChange($event)"
+          >
+        </v-flex>
+        <!-- attach image button end -->
+
+        <!-- preview attach image -->
+        <v-flex v-for="(file, key) in files" v-bind:key="key" class="mt-2 ml-2">
+          <img class="preview" v-bind:ref="'image' +parseInt( key )" style="max-height: 100px ;">
+        </v-flex>
+
+        <v-flex xs12 md12 class="mt-3">
+          <v-btn block color="primary" @click="upload(files)">Submit Answer</v-btn>
+        </v-flex>
+      </v-layout>
     </v-form>
-    <v-layout row wrap>
-      <!-- attach image button start-->
-      <v-flex>
-        <v-btn large @click.native="selectFile" v-if="!lock">
-          <v-icon left aria-hidden="true">add_a_photo</v-icon>Attach File
-        </v-btn>
-        <input
-          id="files"
-          type="file"
-          name="file"
-          ref="uploadInput"
-          accept="image/*"
-          :multiple="true"
-          @change="onFileChange($event)"
-        >
-      </v-flex>
-      <!-- attach image button end -->
 
-      <!-- preview attach image -->
-      <v-flex v-for="(file, key) in files" v-bind:key="key" class="mt-2 ml-2">
-        <img class="preview" v-bind:ref="'image' +parseInt( key )" style="max-height: 100px ;">
-      </v-flex>
-
-      <v-flex xs12 md12 class="mt-3">
-        <v-btn block color="primary" @click="upload(files)">Submit Answer</v-btn>
-      </v-flex>
-    </v-layout>
   </v-container>
 </template>
 
@@ -88,10 +105,7 @@ export default {
       ],
       active: null,
       hashtag: [],
-      // items: ["Streaming", "Eating"],
-      select: "Programming",
       items: []
-      // items: ["Watching movies", "Sleeping", "Streaming", "Eating"]
     };
   },
   methods: {
@@ -173,18 +187,14 @@ export default {
       };
       console.log(newDoc);
       axios
-        .post(
-          "https://logical-river-244214.appspot.com/documents/" +
-            this.$route.params.docId,
-          newDoc
-        )
+        .post("https://logical-river-244214.appspot.com/documents/" + this.$route.params.docId,newDoc)
         .then(response => {
           console.log(response);
+          // this.$router.push("/askedview"+this.$route.params.docId);
         })
         .catch(error => {
           console.log(error);
         });
-      //   window.location.reload()
     },
     remove(item) {
       this.chips.splice(this.chips.indexOf(item), 1);
