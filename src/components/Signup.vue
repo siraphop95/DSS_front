@@ -122,6 +122,7 @@ export default {
   methods: {
     addToAPI() {
       if (this.$refs.form.validate()) {
+        var userTemp = this.changeValue()
         let newUser = {
           username: this.User.username,
           password: this.User.password,
@@ -129,18 +130,28 @@ export default {
           lastName: this.User.lastName,
           email: this.User.email,
           profession: this.User.profession,
-          userType: this.User.userType
+          userType: userTemp
         };
         console.log(newUser);
         axios
           .post("https://logical-river-244214.appspot.com/users", newUser)
           .then(response => {
             console.log(response);
-            this.$router.push(this.$route.query.redirect || '/')
+            this.$router.push("/login");
           })
           .catch(error => {
             console.log(error);
           });
+      }
+
+    },
+    changeValue(value){
+      var temp
+      if(value == "ผู้ถาม"){
+        return temp = "answerer"
+      }
+      else{
+        return temp = "questioner"
       }
     }
   }

@@ -40,6 +40,7 @@ export default {
     });
 
     Event.$on("logout", () => {
+      window.token = null;
       this.loggedIn = false;
       this.redirectGuestToLogin();
       this.$router.push('/login');
@@ -59,7 +60,7 @@ export default {
       if (this.$router.history.current.path == "/signup") {
       } else if (this.$router.history.current.path == "/forgotpassword") {
       } else if (!token) {
-        return this.$router.push("/login");
+        return this.$router.push("/logout");
       } else if (token) {
         let config = {
           headers: {

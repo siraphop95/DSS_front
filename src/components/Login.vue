@@ -69,7 +69,7 @@ export default {
           }
           //everything pass
           else if(response.data.status == 200){
-            // console.log(response.data)
+            console.log(response.data)
             let newToken = response.data.token;
             window.token = newToken;
             let user = response.data.user;

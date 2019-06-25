@@ -9,17 +9,20 @@
 export default {
 
   created() {
+
     if (!token) {
-      return false;
+      localStorage.removeItem('user');
+      Event.$emit('logout');
+      
     }
     axios.get("https://logical-river-244214.appspot.com/logout/"+token)
 			.then(response => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+         
        const lMessage=response.data.message;
        console.log(lMessage);
         Event.$emit('logout');
-        
         
 			});
   },

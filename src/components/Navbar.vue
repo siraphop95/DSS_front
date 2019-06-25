@@ -14,11 +14,13 @@
           <v-icon>account_circle</v-icon>
         </v-btn>
         <v-layout column align-center pt-3 class="white">
+          <v-flex>
           <v-avatar size="70">
-            <img src="@/assets/thor_avatar.png">
+            <img src="@/assets/account_logo.png">
           </v-avatar>
-          <p>{{user.username}}</p>
-          <p>{{user.email}}</p>
+          </v-flex>
+          <v-flex>{{user.username}}</v-flex>
+          <v-flex>{{user.email}}</v-flex>
         </v-layout>
         <v-list>
           <v-list-tile v-for="(item, index) in items" :key="index" router :to="item.route">
@@ -78,8 +80,8 @@ export default {
   },
   mounted() {
     this.user = JSON.parse(localStorage.getItem("user"));
-    
-    // console.log(this.user)
+    console.log("test")
+    console.log(this.user)
   }
 };
 </script>

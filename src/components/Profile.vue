@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-layout text-xs-center wrap>
-      <h1 class="grey--text">My Profile</h1>
+      
 
       <!-- dialog -->
       <v-dialog max-width="600px" v-model="dialog">
@@ -28,8 +28,12 @@
 
       <!-- activities presentation -->
     </v-layout>
-    <v-card flat>
-      <v-layout row wrap>
+    <v-layout column align-center justify-center>
+      <v-flex class="headline indigo--text">
+        My Profile
+      </v-flex>
+    <v-card width="410px" height="auto" class="elevation-8 mt-3">
+      <v-layout row wrap >
         <v-flex xs12 sm4 md2>
           <div class="grey--text">Name</div>
           <div>{{ user.username }}</div>
@@ -48,6 +52,7 @@
         </v-flex>
       </v-layout>
     </v-card>
+    </v-layout>
   </v-container>
 </template>
 

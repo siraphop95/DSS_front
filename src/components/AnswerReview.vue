@@ -2,23 +2,31 @@
     <v-container>
         <v-container v-if="IsAns()">
         <v-layout text-xs-center wrap>
-            <div v-if=success>
-            <p>{{Documents.answerDetail}}</p>
-
-            <div v-if="IsImg()">
-            <v-flex v-for="img in Documents.fileURL" :key="img._id">
-                <v-img :src="Documents.fileURL[0]" aspect-ratio="1.7"></v-img>
+            <v-container v-if=success>
+            <v-flex class="title indigo--text text-xs-left">Answer:</v-flex>
+            <v-flex>
+            <v-card fluid>
+              <v-card-text>
+                {{Documents.answerDetail}}
+              </v-card-text>
+            </v-card>
             </v-flex>
-            </div>
-
-            </div>
+            <v-flex v-if="IsImg()">
+            <v-flex class="title indigo--text text-xs-left pt-3">Attached file(s):</v-flex>
+            <v-flex v-for="n in Documents.fileURL.length" :key="n">
+                <v-img :src="Documents.fileURL[n-1]" aspect-ratio="3" class="ma-1"></v-img>
+            </v-flex>
+            </v-flex>
+            </v-container>
         </v-layout>
         </v-container>
+
         <v-container v-else>
             <v-layout fluid>
                 <v-flex class="text-xs-center">There is no available answer yet</v-flex>
             </v-layout>
         </v-container>
+
     </v-container>
 </template>
 

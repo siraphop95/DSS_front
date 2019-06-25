@@ -70,7 +70,6 @@
               </v-layout>
             </v-form>
             <v-btn color="primary" @click="stepperContinue">Continue</v-btn>
-            <v-btn flat>Cancel</v-btn>
           </v-stepper-content>
 
           <!-- stepper content 2 -->
@@ -103,14 +102,14 @@
               </v-layout>
             </v-form>
             <v-btn color="primary" @click="stepper = 3">Continue</v-btn>
-            <v-btn flat @click="stepper = 1">Cancel</v-btn>
+            <v-btn flat @click="stepper = 1">Go Back</v-btn>
           </v-stepper-content>
 
           <!-- stepper content 3 -->
           <v-stepper-content step="3">
             <v-form ref="step3">
               <v-layout row wrap px-5 py-2 my-3>
-                <v-flex xs12 sm7>
+                <v-flex xs12 sm6>
                   <v-select
                     menu-props="offsetY"
                     prepend-icon="local_hospital"
@@ -120,20 +119,28 @@
                     v-model="Doc.purpose"
                   ></v-select>
                 </v-flex>
-                <v-flex xs12 md12 pt-5>
-                  <v-slider
+                <v-flex xs12 sm6>
+                  <!-- <v-slider
                     v-model="Doc.respondTime"
                     :tick-labels="respondTimes"
                     :rules="requiredRules"
                     :max="3"
                     step="1"
                     tick-size="5"
-                  ></v-slider>
+                  ></v-slider> -->
+                  <v-select
+                    menu-props="offsetY"
+                    prepend-icon="local_hospital"
+                    :items="respondTimes"
+                    label="Respond Time"
+                    pa-3 :rules="requiredRules"
+                    v-model="Doc.respondTime"
+                  ></v-select>
                 </v-flex>
               </v-layout>
             </v-form>
             <v-btn color="primary" @click="addToAPI">Continue</v-btn>
-            <v-btn flat @click="stepper = 2">Cancel</v-btn>
+            <v-btn flat @click="stepper = 2">Go Back</v-btn>
           </v-stepper-content>
         </v-stepper-items>
       </v-stepper>
@@ -232,6 +239,7 @@ export default {
         .post("https://logical-river-244214.appspot.com/documents", newDoc)
         .then(response => {
           console.log(response);
+          this.$router.push("/");
         })
         .catch(error => {
           console.log(error);
