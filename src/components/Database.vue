@@ -57,10 +57,10 @@ export default {
   computed: {
     filterdDocuments: function() {
       if (this.search == "") {
-        // return this.Documents.filter(doc => {
-        //   return doc.title.match("");
-        // });
-        //this.search=""
+        return this.Documents.filter(doc => {
+          return doc.title.match("");
+        });
+        this.search=""
       } else {
         var options = {
           shouldSort: true,
@@ -99,34 +99,9 @@ export default {
     axios
       .get("https://logical-river-244214.appspot.com/documents")
       .then(response => {
+        console.log(response.data)
         this.Documents = response.data;
-
-        axios
-          .get(
-            "https://logical-river-244214.appspot.com/documents/" +
-              this.$route.params.docId
-          )
-          .then(response => {
-            this.document = response.data;
-
-            //Remove current document from Documents
-            var currentId = this.document._id;
-            this.Documents = this.Documents.filter(function(doc) {
-              return doc._id != currentId;
-            });
-            var key = "";
-
-            if (typeof this.document.keywords !== "undefined") {
-              for (var i = 0; i < this.document.keywords.length; i++) {
-                key += this.document.keywords[i] + " ";
-              }
-            }
-
-            this.search = this.document.title + " " + this.document.question + " " + key;
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        
       })
       .catch(error => {
         console.log(error);
