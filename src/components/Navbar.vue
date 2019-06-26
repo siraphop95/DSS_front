@@ -54,7 +54,7 @@
             <v-icon>{{ link.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ link.text }}</v-list-tile-title>
+            <v-list-tile-title class="body-2">{{ link.text }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -70,7 +70,7 @@ export default {
       drawer: true,
       links: [
         { icon: "add_circle", text: "Create New Question", route: "/addDocument" , type: "questioner"},
-        { icon: "dashboard", text: "New Questions", route: "/newquestion" , type: "answerer"},
+        { icon: "dashboard", text: "Unanswered Question", route: "/newquestion" , type: "answerer"},
         { icon: "folder", text: "My Questions", route: "/myQuestions", type:"questioner"},
         { icon: "drafts", text: "My Answers", route: "/myAnswers", type: "answerer"},
         { icon: "drafts", text: "Reply Inbox", route: "/replyinbox", type: "questioner"},
@@ -111,4 +111,5 @@ a.primary--text {
   color: #e5e9ec !important;
   caret-color: #f4f4f4 !important;
 }
+a:hover { COLOR:  #e5e9ec ; TEXT-DECORATION: none; font-weight: none }
 </style>
