@@ -14,11 +14,10 @@ const fb = require('./firebaseConfig.js')
 window.token = localStorage.getItem('token');
 
 window.axios = axios
-//window.axios.defaults.baseURL='http://weblloapi.dev'
+window.axios.defaults.baseURL='http://localhost:3000'
+// window.axios.defaults.baseURL='https://logical-river-244214.appspot.com'
 window.axios.defaults.params = { api_token: window.token }
-window.axios.defaults.headers.common = {
-  Authorization: "Bearer " + window.token
-};
+
 
 Vue.use(Vuetify)
 Vue.use(VeeValidate);

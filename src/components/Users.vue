@@ -72,7 +72,7 @@ export default {
   methods: {
     delUser(userId) {
       axios
-        .delete("https://logical-river-244214.appspot.com/users/" + userId)
+        .delete("/users/" + userId)
         .then(response => {
           console.log("Delete UserId: " + userId);
           window.location.reload();
@@ -91,7 +91,7 @@ export default {
   },
   mounted() {
     axios
-      .get("https://logical-river-244214.appspot.com/users")
+      .get("/users")
       .then(response => {
         console.log(response.data);
         this.Users = response.data;

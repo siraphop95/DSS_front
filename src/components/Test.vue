@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     delDocument(docId) {
-      var url = "https://logical-river-244214.appspot.com/users/" + docId;
+      var url = "/users/" + docId;
       axios
         .delete(url)
         .then(response => {
@@ -137,7 +137,7 @@ export default {
     }
   },
   mounted() {
-    var url = "https://logical-river-244214.appspot.com/documents/" + this.user.username;
+    var url = "/documents/" + this.user.username;
     axios
       .get(url)
       .then(response => {

@@ -108,7 +108,7 @@ export default {
         email: this.updatedUser.email
       }
       console.log(newUser)
-      axios.post('https://logical-river-244214.appspot.com/users/' + this.User._id, newUser)
+      axios.post('/users/' + this.User._id, newUser)
         .then((response) => {
           console.log(response)
         })

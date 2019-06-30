@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     delDocument(docId) {
-      var url = "https://logical-river-244214.appspot.com/users/" + docId
+      var url = "/users/" + docId
       axios
         .delete(url)
         .then(response => {
@@ -110,12 +110,12 @@ export default {
   },
   mounted() {
     axios
-      .get("https://logical-river-244214.appspot.com/new_questions")
+      .get("/new_questions")
       .then(response => {
-        console.log(response.data);
+        // console.log(response.data);
         this.Documents = response.data;
         this.pageLength = Math.ceil(this.Documents.length/10)
-        console.log(typeof(this.pageLength))
+        // console.log(typeof(this.pageLength))
       })
       .catch(error => {
         console.log(error);

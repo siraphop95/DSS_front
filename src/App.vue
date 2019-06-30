@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <Navbar v-if="isShow()"/>
+    <Navbar v-if="isShow()" />
     <v-content>
-      <router-view/>
+      <router-view />
     </v-content>
   </v-app>
 </template>
@@ -16,10 +16,7 @@ export default {
   data() {
     return {
       boards: "",
-      user: {
-        name: "",
-        id: ""
-      },
+      user: [],
       title: "DSS",
       loggedIn: false
     };
@@ -30,22 +27,19 @@ export default {
     Event.$on("login", $user => {
       this.loggedIn = true;
       this.user = $user;
-      // console.log(token);
       window.axios = axios;
       window.axios.defaults.headers.common = {
-        Authorization: "Bearer " + window.token
+        Authorization: "Bearer " + window.token,
+        userid: $user._id
       };
 
-      if(this.user.userType=="questioner"){
+      if (this.user.userType == "questioner") {
         this.$router.push("/myquestions");
-      }
-      else if(this.user.userType=="answerer"){
+      } else if (this.user.userType == "answerer") {
         this.$router.push("/newquestion");
-      }
-      else if(this.user.userType=="admin"){
+      } else if (this.user.userType == "admin") {
         this.$router.push("/");
-      }
-      else{
+      } else {
         this.$router.push("/logout");
       }
 
@@ -56,7 +50,7 @@ export default {
       window.token = null;
       this.loggedIn = false;
       this.redirectGuestToLogin();
-      this.$router.push('/login');
+      this.$router.push("/login");
     });
 
     if (token) {
@@ -70,18 +64,19 @@ export default {
 
   methods: {
     redirectGuestToLogin() {
-      if (this.$router.history.current.path == "/signup") {
-      } else if (this.$router.history.current.path == "/forgotpassword") {
-      } else if (!token) {
+      window.token = localStorage.getItem("token");
+
+      if (!token) {
         return this.$router.push("/logout");
       } else if (token) {
-        let config = {
-          headers: {
-            Authorization: "Bearer " + token
-          }
+        var user = JSON.parse(localStorage.getItem("user"));
+        window.axios.defaults.headers.common = {
+          Authorization: "Bearer " + window.token,
+          userid: user._id
         };
+
         axios
-          .get("https://logical-river-244214.appspot.com/authentication")
+          .get("/authentication")
           .then(response => {
             if (response.status == 200) {
               // console.log("authen");

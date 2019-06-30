@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     delDocument(docId) {
-      var url = "https://logical-river-244214.appspot.com/users/" + docId
+      var url = "/users/" + docId
       axios
         .delete(url)
         .then(response => {
@@ -128,7 +128,7 @@ export default {
   mounted() {
     this.user = JSON.parse(localStorage.getItem("user"));
     axios
-      .get("https://logical-river-244214.appspot.com/myans_documents/"+this.user.username)
+      .get("/myans_documents/"+this.user.username)
       .then(response => {
         console.log(response.data)
         this.Documents = response.data

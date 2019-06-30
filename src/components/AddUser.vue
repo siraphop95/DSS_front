@@ -63,7 +63,7 @@ export default {
       };
       console.log(newUser);
       axios
-        .post("https://logical-river-244214.appspot.com/users", newUser)
+        .post("/users", newUser)
         .then(response => {
           console.log(response);
         })

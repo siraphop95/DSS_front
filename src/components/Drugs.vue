@@ -86,7 +86,7 @@ export default {
 },
 methods: {
     delDrug (drugId) {
-      var url = 'https://logical-river-244214.appspot.com/drugs/' + drugId
+      var url = '/drugs/' + drugId
       axios.delete(url)
         .then((response) => {
           console.log('Delete drugId: ' + drugId)
@@ -109,7 +109,7 @@ computed: {
     }
 },
 mounted() {
-      axios.get('https://logical-river-244214.appspot.com/drugs')
+      axios.get('/drugs')
       .then((response)=>{
         console.log(response.data)
         this.Drugs = response.data

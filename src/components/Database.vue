@@ -66,7 +66,7 @@ export default {
     deleteDoc(docId) {
       console.log("Delete DocId: " + docId);
       axios
-        .delete("https://logical-river-244214.appspot.com/documents/" + docId)
+        .delete("/documents/" + docId)
         .then(response => {
           console.log("Delete DocId: " + docId);
           window.location.reload();
@@ -121,7 +121,7 @@ export default {
     this.user = JSON.parse(localStorage.getItem("user"));
     console.log(this.user)
     axios
-      .get("https://logical-river-244214.appspot.com/documents")
+      .get("/documents")
       .then(response => {
         console.log(response.data)
         this.Documents = response.data;

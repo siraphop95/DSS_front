@@ -15,7 +15,7 @@ export default {
       Event.$emit('logout');
       
     }
-    axios.get("https://logical-river-244214.appspot.com/logout/"+token)
+    axios.get("/logout/"+token)
 			.then(response => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');

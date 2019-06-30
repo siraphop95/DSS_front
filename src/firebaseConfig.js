@@ -15,7 +15,7 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig)
-console.log("firebase initializaed in ./scr/firebaseConfig.js")
+// console.log("firebase initializaed in ./scr/firebaseConfig.js")
 
 // const firestorage = firebase.storage()
 const auth = firebase.auth()

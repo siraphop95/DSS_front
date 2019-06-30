@@ -18,13 +18,13 @@
       </thead>
       <tbody>
         <tr v-for="auser in filterdDocuments" v-bind:key="auser.id">
-          <td class="text-left">{{ auser.title }}</td>
-          <td class="text-left">{{ auser.question }}</td>
+          <td class="text-left">{{ auser.item.title }}</td>
+          <td class="text-left">{{ auser.item.question }}</td>
           <td class="text-left">
-            <ul v-for="key in auser.keywords" v-bind:key="key">{{key}}</ul>
+            <ul v-for="key in auser.item.keywords" v-bind:key="key">{{key}}</ul>
           </td>
           <td>
-            <router-link :to="{ path: '/view2tabs/' + auser._id}">
+            <router-link :to="{ path: '/view2tabs/' + auser.item._id}">
               <button>view</button>
             </router-link>
           </td>
@@ -66,7 +66,7 @@ export default {
           shouldSort: true,
           tokenize: true,
           findAllMatches: true,
-          //includeScore: true,
+          includeScore: true,
           //includeMatches: true,
           threshold: 0.3,
           location: 0,
@@ -80,7 +80,7 @@ export default {
             },
             {
               name: "question",
-              weight: 0.1
+              weight: 0.10
             },
             {
               name: "keywords",
@@ -91,19 +91,23 @@ export default {
 
         var fuse = new Fuse(this.Documents, options);
         var result = fuse.search(this.search);
-        return result;
+        console.log(result)
+        return result.filter(res => {
+          return res.score<0.30
+        });
+
       }
     }
   },
   mounted() {
     axios
-      .get("https://logical-river-244214.appspot.com/documents")
+      .get("/documents")
       .then(response => {
         this.Documents = response.data;
 
         axios
           .get(
-            "https://logical-river-244214.appspot.com/documents/" +
+            "/documents/" +
               this.$route.params.docId
           )
           .then(response => {

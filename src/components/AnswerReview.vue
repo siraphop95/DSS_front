@@ -96,13 +96,13 @@ export default {
   mounted() {
     axios
       .get(
-        "https://logical-river-244214.appspot.com/documents/" +
+        "/documents/" +
           this.$route.params.docId
       )
       .then(response => {
         this.Documents = response.data;
         this.success = true;
-        console.log(this.Documents)
+        // console.log(this.Documents)
       })
       .catch(error => {
         console.log(error);

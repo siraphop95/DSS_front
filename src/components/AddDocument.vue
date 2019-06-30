@@ -236,7 +236,7 @@ export default {
       };
       console.log(newDoc);
       axios
-        .post("https://logical-river-244214.appspot.com/documents", newDoc)
+        .post("/documents", newDoc)
         .then(response => {
           console.log(response);
 

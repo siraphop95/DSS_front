@@ -97,7 +97,7 @@ export default {
           userType: userTemp
       }
       console.log(newUser)
-      axios.post('https://logical-river-244214.appspot.com/users/' + this.$route.params.userId, newUser)
+      axios.post('/users/' + this.$route.params.userId, newUser)
         .then((response) => {
           console.log(response)
           window.location.reload()
@@ -126,7 +126,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('https://logical-river-244214.appspot.com/users/' + this.$route.params.userId)
+    axios.get('/users/' + this.$route.params.userId)
       .then((response) => {
         console.log(response.data)
         this.User = response.data

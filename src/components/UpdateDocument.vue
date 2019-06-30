@@ -234,7 +234,7 @@ export default {
       };
       console.log(newDoc);
       axios
-        .post("https://logical-river-244214.appspot.com/documents/"+ this.$route.params.docId, newDoc)
+        .post("/documents/"+ this.$route.params.docId, newDoc)
         .then(response => {
           console.log(response);
           this.$router.push("/database");
@@ -246,7 +246,7 @@ export default {
     }
   },
   mounted () {
-    axios.get('https://logical-river-244214.appspot.com/documents/' + this.$route.params.docId)
+    axios.get('/documents/' + this.$route.params.docId)
       .then((response) => {
         console.log(response.data)
         this.Doc = response.data

@@ -86,7 +86,7 @@ export default {
       console.log(newUser);
       axios
         .post(
-          "https://logical-river-244214.appspot.com/users/" + this.user._id,
+          "/users/" + this.user._id,
           newUser
         )
         .then(response => {

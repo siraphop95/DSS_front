@@ -135,7 +135,7 @@ export default {
         };
         console.log(newUser);
         axios
-          .post("https://logical-river-244214.appspot.com/users", newUser)
+          .post("/users", newUser)
           .then(response => {
             if (response.status == 201) {
             this.error_msg="username already existed"
