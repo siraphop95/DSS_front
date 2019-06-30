@@ -23,17 +23,17 @@
       <table class="table table-stripped table-borderes">
         <thead>
           <tr>
+            <th class="center">Username</th>
             <th class="center">First Name</th>
             <th class="center">Last Name</th>
-            <th class="center">Email</th>
             <th class="center">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="auser in filterdUsers" v-bind:key="auser.id">
+            <td class="text-left">{{ auser.username }}</td>
             <td class="text-left">{{ auser.firstName }}</td>
             <td class="text-left">{{ auser.lastName }}</td>
-            <td class="text-left">{{ auser.email }}</td>
             <td class="text-left">
               <!-- Update btn-->
               <router-link :to="{ path: 'updateuser/' + auser._id}">
@@ -46,7 +46,7 @@
                 class="btn btn-xs btn-danger"
                 data-toggle="modal"
                 data-target=".bd-example-modal-sm"
-                @click="DELETE(auser._id)"
+                @click="delUser(auser._id)"
               >
                 <span class="glyphicon glyphicon-trash"></span>
               </button>
@@ -54,44 +54,6 @@
           </tr>
         </tbody>
       </table>
-      <router-link to="/adduser">
-        <button class="btn btn-large btn-block btn-success full-width">Add User</button>
-      </router-link>
-
-      <router-link to="/documents">
-        <button class="btn btn-large btn-block btn-success full-width">Document List</button>
-      </router-link>
-
-      <router-link to="/addDocument">
-        <button class="btn btn-large btn-block btn-success full-width">Compose</button>
-      </router-link>
-
-      <div
-        class="modal fade bd-example-modal-sm"
-        id="myModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title" id="exampleModalLabel">Are you sure?</h1>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">Are you sure you want to delete this item?</div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <router-link to="/">
-                <button type="button" class="btn btn-danger" @click="delUser(uid)">Delete</button>
-              </router-link>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </v-app>
 </template>
@@ -109,20 +71,15 @@ export default {
   },
   methods: {
     delUser(userId) {
-      var url = "https://logical-river-244214.appspot.com/users/" + userId;
       axios
-        .delete(url)
+        .delete("https://logical-river-244214.appspot.com/users/" + userId)
         .then(response => {
           console.log("Delete UserId: " + userId);
+          window.location.reload();
         })
         .catch(error => {
           console.log(error);
         });
-      window.location.reload();
-    },
-    DELETE(id) {
-      $("#my-modal").modal("show");
-      this.uid = id;
     }
   },
   computed: {

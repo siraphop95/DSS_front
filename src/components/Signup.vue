@@ -49,14 +49,14 @@
         <v-card-actions class="px-3">
           <v-layout wrap py-3 px-0 ma-0>
             <v-flex pt-3 xs12>
-              <v-btn class="ma-0 info" block round @click="addToAPI">Get Started!</v-btn>
+              <v-btn class="ma-0 info" block round @click="addToAPI">Create New Account</v-btn>
             </v-flex>
-            <v-flex class="text-xs-center" pt-4>
+            <!-- <v-flex class="text-xs-center" pt-4>
               <p class="caption">
                 <span>Already Registed?</span>
                 <a href="/login">Sign In now</a>
               </p>
-            </v-flex>
+            </v-flex> -->
           </v-layout>
         </v-card-actions>
 
@@ -141,7 +141,7 @@ export default {
             this.error_msg="username already existed"
           }
           else{
-            this.$router.push("/login");
+            this.$router.push("/users");
           }
             
           })

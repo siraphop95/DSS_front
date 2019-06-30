@@ -4,6 +4,14 @@
       <div class="well">
         <h4>Update User</h4>
         <div class="form-group" >
+          <label class="pull-left">Username: </label>
+          <input type="text" class="form-control" placeholder="Username" v-model="User.username">
+        </div>
+        <div class="form-group" >
+          <label class="pull-left">Password: </label>
+          <input type="text" class="form-control" placeholder="Password" v-model="User.password">
+        </div>
+        <div class="form-group" >
           <label class="pull-left">First Name: </label>
           <input type="text" class="form-control" placeholder="First Name" v-model="User.firstName">
         </div>
@@ -16,8 +24,25 @@
           <input type="email" class="form-control" placeholder="Email" v-model="User.email">
         </div>
       </div>
-      <router-link to="/">
-        <button type="submit" class="btn btn-large btn-block btn-primary full-width" @click="updateToAPI">Submit</button>
+      <v-select
+        menu-props="offsetY"
+        :items="professionItems"
+        label="Health Professional"
+        required
+        :rules="requiredRules"
+        v-model="User.profession"
+      ></v-select>
+      <v-select
+        menu-props="offsetY"
+        :items="userTypeItems"
+        label="User Type"
+        required
+        :rules="requiredRules"
+        v-model="User.userType"
+      ></v-select>
+      
+      <button type="submit" class="btn btn-large btn-block btn-primary full-width" @click="updateToAPI">Submit</button>
+      <router-link to="/users">
         <button class="btn btn-large btn-block btn-success full-width">Back to User Page</button>
       </router-link>
     </form>
@@ -33,29 +58,71 @@ export default {
     return {
       msg: 'Update User',
       User: {
-        firstName: '',
-        lastName: '',
-        email: ''
-      }
+        username: "",
+        password: "",
+        confirmPassword: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        profession: "",
+        userType: ""
+      },
+      requiredRules: [v => !!v || "required to fill"],
+      professionItems: [
+        "แพทย์ทั่วไป",
+        "แพทย์เฉพาะทาง",
+        "ทันตแพทย์",
+        "เภสัชกร",
+        "พยาบาล",
+        "นักวิทย์",
+        "นักสาธารณสุข",
+        "นักศึกษาวิทย์ฯ",
+        "ประชาชน",
+        "อื่น ๆ"
+      ],
+      userTypeItems: ["ผู้ถาม", "ผู้ตอบ"]
     }
   },
   methods: {
     updateToAPI () {
       console.log(this.$route.params.userId)
+      var userTemp = this.changeValue()
       let newUser = {
-        firstName: this.User.firstName,
-        lastName: this.User.lastName,
-        email: this.User.email
+        username: this.User.username,
+          password: this.User.password,
+          firstName: this.User.firstName,
+          lastName: this.User.lastName,
+          email: this.User.email,
+          profession: this.User.profession,
+          userType: userTemp
       }
       console.log(newUser)
       axios.post('https://logical-river-244214.appspot.com/users/' + this.$route.params.userId, newUser)
         .then((response) => {
           console.log(response)
+          window.location.reload()
         })
         .catch((error) => {
           console.log(error)
         })
-      window.location.reload()
+    },
+    changeValue(value){
+      var temp
+      if(value == "ผู้ถาม"){
+        return temp = "answerer"
+      }
+      else{
+        return temp = "questioner"
+      }
+    },
+    changeValueBack(value){
+      var temp
+      if(value == "answerer"){
+        return temp = "ผู้ถาม"
+      }
+      else{
+        return temp = "ผู้ตอบ"
+      }
     }
   },
   mounted () {
@@ -63,6 +130,7 @@ export default {
       .then((response) => {
         console.log(response.data)
         this.User = response.data
+        this.User.userType = this.changeValueBack()
       })
       .catch((error) => {
         console.log(error)

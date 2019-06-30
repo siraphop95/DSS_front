@@ -17,19 +17,27 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="auser in filterdDocuments" v-bind:key="auser.id">
-          <td class="text-left">{{ auser.title }}</td>
-          <td class="text-left">{{ auser.question }}</td>
+        <tr v-for="doc in filterdDocuments" v-bind:key="doc.id">
+          <td class="text-left">{{ doc.title }}</td>
+          <td class="text-left">{{ doc.question }}</td>
           <td class="text-left">
-            <ul v-for="key in auser.keywords" v-bind:key="key">{{key}}</ul>
+            <ul v-for="key in doc.keywords" v-bind:key="key">{{key}}</ul>
           </td>
           <td>
-            <router-link :to="{ path: '/view2tabs/' + auser._id}">
+            <router-link :to="{ path: '/view2tabs/' + doc._id}">
               <button>view</button>
             </router-link>
           </td>
+          <td v-if="user.userType=='admin'">
+            <router-link :to="{ path: '/updatedocument/' + doc._id}">
+              <button>edit</button>
+            </router-link>
+          </td>
+          <td v-if="user.userType=='admin'">
+              <button @click="deleteDoc(doc._id)">delete</button>
+          </td>
           <!-- <td class="text-left">
-            <router-link :to="{ path: 'updateuser/' + auser._id}">
+            <router-link :to="{ path: 'updateuser/' + doc._id}">
             Update btn
             <button class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
             </router-link>
@@ -50,10 +58,24 @@ export default {
       Documents: [],
       document: {},
       did: "",
-      search: ""
+      search: "",
+      user:{}
     };
   },
-  methods: {},
+  methods: {
+    deleteDoc(docId) {
+      console.log("Delete DocId: " + docId);
+      axios
+        .delete("https://logical-river-244214.appspot.com/documents/" + docId)
+        .then(response => {
+          console.log("Delete DocId: " + docId);
+          window.location.reload();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+  },
   computed: {
     filterdDocuments: function() {
       if (this.search == "") {
@@ -96,6 +118,8 @@ export default {
     }
   },
   mounted() {
+    this.user = JSON.parse(localStorage.getItem("user"));
+    console.log(this.user)
     axios
       .get("https://logical-river-244214.appspot.com/documents")
       .then(response => {

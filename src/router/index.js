@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import AddUser from '@/components/AddUser'
 import Users from '@/components/Users'
 import UpdateUser from '@/components/UpdateUser'
+import UpdateDocument from '@/components/UpdateDocument'
 import AddDocument from '@/components/AddDocument'
 import MyQuestions from '@/components/MyQuestions'
 import MyAnswers from '@/components/MyAnswers'
@@ -44,7 +45,7 @@ export default new Router({
       component: AddUser
     },
     {
-      path: '/user',
+      path: '/users',
       name: 'Users',
       component: Users
     },
@@ -52,6 +53,11 @@ export default new Router({
       path: '/updateUser/:userId',
       name: 'UpdateUser',
       component: UpdateUser
+    },
+    {
+      path: '/updatedocument/:docId',
+      name: 'UpdateDocument',
+      component: UpdateDocument
     },
     {
       path: '/addDocument',

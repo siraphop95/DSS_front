@@ -10,10 +10,10 @@
           <v-card-title>
             <v-layout column align-center pt-2>
               <p class="headline">Sign In</p>
-              <p class="caption">
+              <!-- <p class="caption">
                 <span>or</span>
                 <a href="/signup">create an account</a>
-              </p>
+              </p> -->
             </v-layout>
           </v-card-title>
           <v-card-text class="px-4 py-0">

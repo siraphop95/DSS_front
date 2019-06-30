@@ -74,7 +74,9 @@ export default {
         { icon: "folder", text: "My Questions", route: "/myQuestions", type:"questioner"},
         { icon: "drafts", text: "My Answers", route: "/myAnswers", type: "answerer"},
         { icon: "drafts", text: "Reply Inbox", route: "/replyinbox", type: "questioner"},
-        { icon: "account_balance", text: "Database", route: "/database", type: true }
+        { icon: "add_box", text: "Create New Account", route: "/signup", type: "admin" },
+        { icon: "inbox", text: "List All Documents", route: "/database", type: true },
+        { icon: "person", text: "List All Users", route: "/users", type: "admin" }
       ],
       items: [
         { title: "Manage Profile", route: "/profile" },

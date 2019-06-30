@@ -42,6 +42,9 @@ export default {
       else if(this.user.userType=="answerer"){
         this.$router.push("/newquestion");
       }
+      else if(this.user.userType=="admin"){
+        this.$router.push("/");
+      }
       else{
         this.$router.push("/logout");
       }
