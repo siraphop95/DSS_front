@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <v-btn @click="isDisable=!isDisable">Start Writing Answer</v-btn>
     <v-form ref="form">
       <v-layout row wrap justify-center>
 
@@ -10,7 +11,7 @@
             label="Revise the Question (optional)"
             v-model="Doc.revisedQuestion"
             auto-grow
-            solo
+            solo :disabled="!isDisable"
             full-width
           ></v-textarea>
         </v-flex>
@@ -22,7 +23,7 @@
             label="Write your Answer"
             v-model="Doc.answerDetail"
             :rules="inputRules"
-            solo
+            solo :disabled="!isDisable"
             required
             auto-grow
             full-width
@@ -34,7 +35,7 @@
             v-model="hashtag"
             :items="items"
             label="Keywords"
-            chips
+            chips :disabled="!isDisable"
             clearable
             prepend-icon="local_offer"
             multiple
@@ -55,7 +56,7 @@
             name="file"
             ref="uploadInput"
             accept="image/*"
-            :multiple="true"
+            :multiple="true" :disabled="!isDisable"
             @change="onFileChange($event)"
           >
         </v-flex>
@@ -92,6 +93,7 @@ export default {
       hashtag: [],
       items: [],
       user: [],
+      isDisable: false,
       Doc: {
         answerDetail: "",
         revisedQuestion: ""
